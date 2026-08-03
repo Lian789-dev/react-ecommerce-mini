@@ -30,7 +30,7 @@ export default function ProductCards({ products }) {
 
 function ActionCards({ product }) {
   return (
-    <div className="mt-auto flex items-center gap-2 pt-4">
+    <div className="mt-auto flex items-stretch gap-2 pt-4">
       <button
         type="button"
         className="cursor-pointer rounded-lg border border-slate-300 p-2 text-slate-700 transition-colors hover:border-green-700 hover:bg-green-700 hover:text-white"
