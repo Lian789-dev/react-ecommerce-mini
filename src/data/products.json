@@ -1,0 +1,114 @@
+[
+  {
+    "id": 1,
+    "name": "Sepatu Sneakers Canvas",
+    "price": 250000,
+    "category": "Sepatu",
+    "image": "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    "id": 2,
+    "name": "Kaos Polos Oversize",
+    "price": 85000,
+    "category": "Pakaian",
+    "image": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    "id": 3,
+    "name": "Jaket Denim Classic",
+    "price": 320000,
+    "category": "Pakaian",
+    "image": "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    "id": 4,
+    "name": "Topi Baseball Casual",
+    "price": 45000,
+    "category": "Aksesoris",
+    "image": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    "id": 5,
+    "name": "Sepatu Running Sport",
+    "price": 450000,
+    "category": "Sepatu",
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    "id": 6,
+    "name": "Smartphone Flagship Pro",
+    "price": 8500000,
+    "category": "Elektronik",
+    "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    "id": 7,
+    "name": "Laptop Slim Ultra",
+    "price": 12500000,
+    "category": "Elektronik",
+    "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    "id": 8,
+    "name": "Smart TV 4K 43 Inch",
+    "price": 4200000,
+    "category": "Elektronik",
+    "image": "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    "id": 9,
+    "name": "Kulkas 2 Pintu Inverter",
+    "price": 3800000,
+    "category": "Elektronik",
+    "image": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    "id": 10,
+    "name": "Smartwatch Sport Edition",
+    "price": 1150000,
+    "category": "Elektronik",
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    "id": 11,
+    "name": "Kemeja Flannel Kotak",
+    "price": 175000,
+    "category": "Pakaian",
+    "image": "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    "id": 12,
+    "name": "Jam Tangan Minimalis",
+    "price": 299000,
+    "category": "Aksesoris",
+    "image": "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    "id": 13,
+    "name": "Kacamata Hitam Polarized",
+    "price": 120000,
+    "category": "Aksesoris",
+    "image": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    "id": 14,
+    "name": "Hoodie Fleece Basic",
+    "price": 210000,
+    "category": "Pakaian",
+    "image": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    "id": 15,
+    "name": "Sepatu Slip On Leather",
+    "price": 380000,
+    "category": "Sepatu",
+    "image": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=500&auto=format&fit=crop&q=60"
+  },
+  {
+    "id": 16,
+    "name": "Headphone Wireless Bass",
+    "price": 650000,
+    "category": "Elektronik",
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60"
+  }
+]
