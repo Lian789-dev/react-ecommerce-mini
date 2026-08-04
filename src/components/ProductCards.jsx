@@ -1,4 +1,4 @@
-export default function ProductCards({ products }) {
+export default function ProductCards({ products, onAddToCart }) {
   return (
     <div className="grid grid-cols-1 gap-4 px-[5%] py-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {products.map((product) => (
@@ -20,7 +20,7 @@ export default function ProductCards({ products }) {
             <span className="my-2 line-clamp-2 text-base font-bold text-green-700">
               Rp{product.price.toLocaleString("id-ID")}
             </span>
-            <ActionCards product={product} />
+            <ActionCards product={product} onAddToCart={onAddToCart} />
           </div>
         </div>
       ))}
@@ -28,7 +28,7 @@ export default function ProductCards({ products }) {
   );
 }
 
-function ActionCards({ product }) {
+function ActionCards({ product, onAddToCart }) {
   return (
     <div className="mt-auto flex items-stretch gap-2 pt-4">
       <button
@@ -54,6 +54,7 @@ function ActionCards({ product }) {
       <button
         type="button"
         className="cursor-pointer rounded-lg border border-slate-300 p-2 text-slate-700 transition-colors hover:border-green-700 hover:bg-green-700 hover:text-white"
+        onClick={() => onAddToCart(product)}
         aria-label="Add To Cart"
       >
         <svg
