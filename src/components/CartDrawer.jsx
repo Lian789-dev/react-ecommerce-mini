@@ -27,12 +27,12 @@ export default function CartDrawer({ isOpenCart, cart, onChangeQuantity }) {
             </div>
           )}
         </div>
-        {cart.length > 0 && <ActionCartDrawer cart={cart} />}
+        {cart.length > 0 && <CartDrawerAction cart={cart} />}
       </div>
     </div>
   );
 }
-function ActionCartDrawer({ cart }) {
+function CartDrawerAction({ cart }) {
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = cart
     .reduce((sum, item) => sum + item.price * item.quantity, 0)
@@ -41,7 +41,9 @@ function ActionCartDrawer({ cart }) {
     <div className="flex flex-none flex-col gap-3 border-t border-slate-200 bg-slate-50 p-4">
       <div className="flex items-center justify-between text-sm text-slate-600">
         <span>Total ({totalItems} products):</span>
-        <span className="text-base font-bold text-green-700">{totalPrice}</span>
+        <span className="text-base font-bold text-green-700">
+          Rp{totalPrice}
+        </span>
       </div>
       <button
         type="button"
@@ -78,7 +80,7 @@ function CartList({ cart, onChangeQuantity }) {
                 Rp{(item.price * item.quantity).toLocaleString("id-ID")}
               </span>
             </div>
-            <ActionCartList
+            <CartListAction
               product={item}
               onChangeQuantity={onChangeQuantity}
             />
@@ -88,7 +90,7 @@ function CartList({ cart, onChangeQuantity }) {
     </div>
   );
 }
-function ActionCartList({ product, onChangeQuantity }) {
+function CartListAction({ product, onChangeQuantity }) {
   return (
     <div className="mt-2 flex items-center gap-3">
       <div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Navbar from "./components/Navbar";
-import CartDrawer from "./components/CartDrawel";
+import CartDrawer from "./components/CartDrawer";
 import ProductCards from "./components/ProductCards";
 import initialProducts from "./data/products.json";
 
@@ -9,7 +9,7 @@ export default function App() {
   const [cart, setCart] = useState([]);
   const [isOpenCart, setIsOpenCart] = useState(false);
 
-  function HandleAddToCart(newItem) {
+  function handleAddToCart(newItem) {
     setCart((prevCart) => {
       const isExist = prevCart.find((product) => product.id === newItem.id);
       if (isExist) {
@@ -47,7 +47,7 @@ export default function App() {
     <div className="min-h-screen bg-slate-50">
       <Navbar cart={cart} onIsOpenCart={handleIsOpenCart} />
       <HeaderInfo />
-      <ProductCards products={products} onAddToCart={HandleAddToCart} />
+      <ProductCards products={products} onAddToCart={handleAddToCart} />
       <CartDrawer
         isOpenCart={isOpenCart}
         cart={cart}
