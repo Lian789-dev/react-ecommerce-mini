@@ -43,14 +43,14 @@ function CategoryCard({ category, image, isActive, onSelect }) {
       className={`group flex w-20 flex-none cursor-pointer flex-col items-center rounded-xl p-1.5 transition-all ${
         isActive
           ? "border-2 border-green-600 bg-green-50/50 shadow-sm"
-          : "border border-transparent hover:bg-slate-50"
+          : "border-2 border-transparent hover:bg-slate-50"
       }`}
       onClick={onSelect}
       aria-label={`Select ${category} category`}
     >
       <div
         className={`h-16 w-16 flex-none overflow-hidden rounded-full bg-slate-100 transition-all ${
-          isActive ? "ring-2 ring-green-600 ring-offset-2" : ""
+          isActive ? "border-green-600" : "border-transparent"
         }`}
       >
         <img
