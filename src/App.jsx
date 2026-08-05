@@ -3,13 +3,20 @@ import Navbar from "./components/Navbar";
 import CartDrawer from "./components/CartDrawer";
 import ProductCards from "./components/ProductCards";
 import Toast from "./components/Toast";
+import CategoryFilter from "./components/CategoryFilter";
+import HeaderInfo from "./components/HeaderInfo";
 import initialProducts from "./data/products.json";
 
 export default function App() {
-  const [products, setProducts] = useState(initialProducts);
+  const [products] = useState(initialProducts);
   const [cart, setCart] = useState([]);
   const [isOpenCart, setIsOpenCart] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const filteredProducts = products.filter((product) =>
+    selectedCategory === "All" ? true : product.category === selectedCategory
+  );
 
   function handleAddToCart(newItem) {
     setCart((prevCart) => {
@@ -23,7 +30,7 @@ export default function App() {
       }
       return [...prevCart, { ...newItem, quantity: 1 }];
     });
-    setToastMessage(`"${newItem.name}" berhasil ditambahkan!`);
+    setToastMessage(`"${newItem.name}" added to cart!`);
   }
 
   function handleQuantityChange(productId, newQuantity) {
@@ -46,14 +53,24 @@ export default function App() {
   function handleIsOpenCart() {
     setIsOpenCart(!isOpenCart);
   }
+
   function handleCloseToast() {
     setToastMessage("");
   }
+
   return (
     <div className="min-h-screen bg-slate-50">
       <Navbar cart={cart} onIsOpenCart={handleIsOpenCart} />
-      <HeaderInfo />
-      <ProductCards products={products} onAddToCart={handleAddToCart} />
+      <CategoryFilter
+        products={products}
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
+      />
+      <HeaderInfo
+        selectedCategory={selectedCategory}
+        onResetCategory={() => setSelectedCategory("All")}
+      />
+      <ProductCards products={filteredProducts} onAddToCart={handleAddToCart} />
       <CartDrawer
         isOpenCart={isOpenCart}
         cart={cart}
@@ -63,12 +80,5 @@ export default function App() {
         <Toast message={toastMessage} onClose={handleCloseToast} />
       )}
     </div>
-  );
-}
-function HeaderInfo() {
-  return (
-    <h2 className="px-[5%] pt-4 text-xl font-bold text-slate-900">
-      Rekomendasi
-    </h2>
   );
 }
