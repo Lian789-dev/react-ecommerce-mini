@@ -2,12 +2,14 @@ import { useState } from "react";
 import Navbar from "./components/Navbar";
 import CartDrawer from "./components/CartDrawer";
 import ProductCards from "./components/ProductCards";
+import Toast from "./components/Toast";
 import initialProducts from "./data/products.json";
 
 export default function App() {
   const [products, setProducts] = useState(initialProducts);
   const [cart, setCart] = useState([]);
   const [isOpenCart, setIsOpenCart] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
 
   function handleAddToCart(newItem) {
     setCart((prevCart) => {
@@ -21,6 +23,7 @@ export default function App() {
       }
       return [...prevCart, { ...newItem, quantity: 1 }];
     });
+    setToastMessage(`"${newItem.name}" berhasil ditambahkan!`);
   }
 
   function handleQuantityChange(productId, newQuantity) {
@@ -43,6 +46,9 @@ export default function App() {
   function handleIsOpenCart() {
     setIsOpenCart(!isOpenCart);
   }
+  function handleCloseToast() {
+    setToastMessage("");
+  }
   return (
     <div className="min-h-screen bg-slate-50">
       <Navbar cart={cart} onIsOpenCart={handleIsOpenCart} />
@@ -53,6 +59,9 @@ export default function App() {
         cart={cart}
         onChangeQuantity={handleQuantityChange}
       />
+      {toastMessage && (
+        <Toast message={toastMessage} onClose={handleCloseToast} />
+      )}
     </div>
   );
 }
