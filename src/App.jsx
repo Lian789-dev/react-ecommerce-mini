@@ -1,10 +1,9 @@
 import { useState } from "react";
 import Navbar from "./components/Navbar";
 import CartDrawer from "./components/CartDrawer";
-import ProductCards from "./components/ProductCards";
+import ProductGrid from "./components/ProductGrid";
 import Toast from "./components/Toast";
 import CategoryFilter from "./components/CategoryFilter";
-import HeaderInfo from "./components/HeaderInfo";
 import initialProducts from "./data/products.json";
 
 export default function App() {
@@ -59,18 +58,19 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <main className="min-h-screen bg-slate-50">
       <Navbar cart={cart} onIsOpenCart={handleIsOpenCart} />
       <CategoryFilter
         products={products}
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
       />
-      <HeaderInfo
-        selectedCategory={selectedCategory}
+      <ProductGrid
+        products={filteredProducts}
+        onAddToCart={handleAddToCart}
+        subTitle={selectedCategory}
         onResetCategory={() => setSelectedCategory("All")}
       />
-      <ProductCards products={filteredProducts} onAddToCart={handleAddToCart} />
       <CartDrawer
         isOpenCart={isOpenCart}
         cart={cart}
@@ -79,6 +79,6 @@ export default function App() {
       {toastMessage && (
         <Toast message={toastMessage} onClose={handleCloseToast} />
       )}
-    </div>
+    </main>
   );
 }
