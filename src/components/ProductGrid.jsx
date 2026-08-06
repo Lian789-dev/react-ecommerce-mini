@@ -59,13 +59,13 @@ function ProductCard({ product, onAddToCart }) {
         <p className="mt-1 line-clamp-2 text-base font-bold text-green-700">
           Rp{product.price.toLocaleString("id-ID")}
         </p>
-        <ActionCard product={product} onAddToCart={onAddToCart} />
+        <ProductCardAction product={product} onAddToCart={onAddToCart} />
       </div>
     </div>
   );
 }
 
-function ActionCard({ product, onAddToCart }) {
+function ProductCardAction({ product, onAddToCart }) {
   return (
     <div className="mt-auto flex items-stretch gap-2 pt-4">
       <button
