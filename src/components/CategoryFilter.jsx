@@ -59,7 +59,7 @@ function CategoryCard({ category, image, isActive, onSelect }) {
           className="h-full w-full object-cover transition-transform duration-200 group-hover:scale-105"
         />
       </div>
-      <span
+      <p
         className={`mt-2 w-full truncate text-center text-xs font-semibold transition-colors ${
           isActive
             ? "font-bold text-green-700"
@@ -67,7 +67,7 @@ function CategoryCard({ category, image, isActive, onSelect }) {
         }`}
       >
         {category}
-      </span>
+      </p>
     </button>
   );
 }
