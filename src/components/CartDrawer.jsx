@@ -1,4 +1,4 @@
-export default function CartDrawer({ isOpenCart, cart, onChangeQuantity }) {
+export default function CartDrawer({ cart, isOpenCart, onChangeQuantity }) {
   if (!isOpenCart) return null;
 
   return (

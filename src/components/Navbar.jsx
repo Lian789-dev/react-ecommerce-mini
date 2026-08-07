@@ -1,10 +1,10 @@
-export default function Navbar({ cart, onIsOpenCart }) {
+export default function Navbar({ cart, onToggleCart }) {
   return (
     <div className="sticky top-0 left-0 z-40 w-full border-b border-slate-200 bg-white px-[5%]">
       <div className="flex h-20 w-full items-center justify-between sm:h-16">
         <Logo />
         <SearchBox />
-        <NavbarAction cart={cart} onIsOpenCart={onIsOpenCart} />
+        <NavbarAction cart={cart} onToggleCart={onToggleCart} />
       </div>
     </div>
   );
@@ -74,7 +74,7 @@ function SearchBox() {
   );
 }
 
-function NavbarAction({ cart, onIsOpenCart }) {
+function NavbarAction({ cart, onToggleCart }) {
   const totalCartItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   return (
     <div className="flex items-center gap-1">
@@ -101,7 +101,7 @@ function NavbarAction({ cart, onIsOpenCart }) {
       <button
         type="button"
         className="relative cursor-pointer p-2 text-slate-700 transition-colors hover:text-black"
-        onClick={onIsOpenCart}
+        onClick={onToggleCart}
         aria-label="Open Cart"
       >
         <svg

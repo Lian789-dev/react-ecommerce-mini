@@ -35,12 +35,11 @@ export default function App() {
   function handleQuantityChange(productId, newQuantity) {
     const qty = parseInt(newQuantity, 10);
 
-    if (qty === 0) {
+    if (isNaN(qty)) return;
+    if (qty <= 0) {
       setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
       return;
     }
-
-    if (isNaN(qty) || qty < 1) return;
 
     setCart((prevCart) =>
       prevCart.map((item) =>
@@ -49,36 +48,30 @@ export default function App() {
     );
   }
 
-  function handleIsOpenCart() {
-    setIsOpenCart(!isOpenCart);
-  }
-
-  function handleCloseToast() {
-    setToastMessage("");
-  }
-
   return (
-    <main className="min-h-screen bg-slate-50">
-      <Navbar cart={cart} onIsOpenCart={handleIsOpenCart} />
-      <CategoryFilter
-        products={products}
-        selectedCategory={selectedCategory}
-        onSelectCategory={setSelectedCategory}
-      />
-      <ProductGrid
-        products={filteredProducts}
-        onAddToCart={handleAddToCart}
-        subTitle={selectedCategory}
-        onResetCategory={() => setSelectedCategory("All")}
-      />
-      <CartDrawer
-        isOpenCart={isOpenCart}
-        cart={cart}
-        onChangeQuantity={handleQuantityChange}
-      />
-      {toastMessage && (
-        <Toast message={toastMessage} onClose={handleCloseToast} />
-      )}
-    </main>
+    <div className="min-h-screen bg-slate-50">
+      <Navbar cart={cart} onToggleCart={() => setIsOpenCart((prev) => !prev)} />
+      <main>
+        <CategoryFilter
+          products={products}
+          selectedCategory={selectedCategory}
+          onSelectCategory={setSelectedCategory}
+        />
+        <ProductGrid
+          products={filteredProducts}
+          onAddToCart={handleAddToCart}
+          subTitle={selectedCategory}
+          onResetCategory={() => setSelectedCategory("All")}
+        />
+        <CartDrawer
+          cart={cart}
+          isOpenCart={isOpenCart}
+          onChangeQuantity={handleQuantityChange}
+        />
+        {toastMessage && (
+          <Toast message={toastMessage} onClose={() => setToastMessage("")} />
+        )}
+      </main>
+    </div>
   );
 }
