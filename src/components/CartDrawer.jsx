@@ -63,15 +63,15 @@ function CartItemActions({ item, onChangeQuantity }) {
     <div className="mt-2 flex items-center gap-3">
       <input
         type="number"
-        className="w-16 rounded-md border border-slate-300 px-2 py-1 text-center font-semibold outline-none focus:ring-2 focus:ring-green-600"
         value={item.quantity}
         onChange={(e) => onChangeQuantity(item.id, e.target.value)}
+        className="w-16 rounded-md border border-slate-300 px-2 py-1 text-center font-semibold outline-none focus:ring-2 focus:ring-green-600"
       />
       <button
         type="button"
-        className="cursor-pointer p-1 text-slate-400 transition-colors hover:text-red-500"
         onClick={() => onChangeQuantity(item.id, 0)}
         aria-label="Remove product from cart"
+        className="cursor-pointer p-1 text-slate-400 transition-colors hover:text-red-500"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -101,15 +101,13 @@ function CartFooter({ cart }) {
   return (
     <div className="flex flex-none flex-col gap-3 border-t border-slate-200 bg-slate-50 p-4">
       <div className="flex items-center justify-between text-sm text-slate-600">
-        <span>Total ({totalItems} products):</span>
-        <span className="text-base font-bold text-green-700">
-          Rp{totalPrice}
-        </span>
+        <p>Total ({totalItems} products):</p>
+        <p className="text-base font-bold text-green-700">Rp{totalPrice}</p>
       </div>
       <button
         type="button"
-        className="w-full cursor-pointer rounded-xl bg-green-700 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-green-800"
         aria-label="Checkout"
+        className="w-full cursor-pointer rounded-xl bg-green-700 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-green-800"
       >
         Checkout
       </button>
