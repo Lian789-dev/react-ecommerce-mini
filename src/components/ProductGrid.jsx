@@ -6,7 +6,9 @@ export default function ProductGrid({
 }) {
   return (
     <section className="min-h-[50dvh] px-[5%] py-4">
-      <SectionHeader subTitle={subTitle} onResetCategory={onResetCategory} />
+      {subTitle && (
+        <SectionHeader subTitle={subTitle} onResetCategory={onResetCategory} />
+      )}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => (
           <ProductCard
@@ -28,12 +30,12 @@ function SectionHeader({ subTitle, onResetCategory }) {
       <h2 className="text-xl font-bold text-slate-900">
         {isAll ? "Recommendation" : subTitle}
       </h2>
-      {!isAll && (
+      {!isAll && onResetCategory && (
         <button
           type="button"
-          className="cursor-pointer text-sm font-semibold text-green-700 transition-all hover:text-green-800 hover:underline"
           onClick={onResetCategory}
           aria-label="Show All Product"
+          className="cursor-pointer text-sm font-semibold text-green-700 transition-all hover:text-green-800 hover:underline"
         >
           Show All
         </button>
@@ -70,8 +72,8 @@ function ProductCardAction({ product, onAddToCart }) {
     <div className="mt-auto flex items-stretch gap-2 pt-4">
       <button
         type="button"
-        className="cursor-pointer rounded-lg border border-slate-300 p-2 text-slate-700 transition-colors hover:border-green-700 hover:bg-green-700 hover:text-white"
         aria-label="Chat The Seller"
+        className="cursor-pointer rounded-lg border border-slate-300 p-2 text-slate-700 transition-colors hover:border-green-700 hover:bg-green-700 hover:text-white"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -90,9 +92,9 @@ function ProductCardAction({ product, onAddToCart }) {
       </button>
       <button
         type="button"
-        className="cursor-pointer rounded-lg border border-slate-300 p-2 text-slate-700 transition-colors hover:border-green-700 hover:bg-green-700 hover:text-white"
         onClick={() => onAddToCart(product)}
         aria-label="Add To Cart"
+        className="cursor-pointer rounded-lg border border-slate-300 p-2 text-slate-700 transition-colors hover:border-green-700 hover:bg-green-700 hover:text-white"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -111,8 +113,8 @@ function ProductCardAction({ product, onAddToCart }) {
       </button>
       <button
         type="button"
-        className="flex-1 cursor-pointer rounded-lg border border-slate-300 px-3 py-2 text-center text-xs font-semibold text-slate-700 transition-colors hover:border-green-700 hover:bg-green-700 hover:text-white"
         aria-label="Buy Product"
+        className="flex-1 cursor-pointer rounded-lg border border-slate-300 px-3 py-2 text-center text-xs font-semibold text-slate-700 transition-colors hover:border-green-700 hover:bg-green-700 hover:text-white"
       >
         Buy Now
       </button>
