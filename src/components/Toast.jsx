@@ -27,12 +27,12 @@ export default function Toast({ message, onClose }) {
           d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
         />
       </svg>
-      <span>{message}</span>
+      <p>{message}</p>
       <button
         type="button"
-        className="ml-2 cursor-pointer text-slate-400 hover:text-white"
         onClick={onClose}
         aria-label="Close notification"
+        className="ml-2 cursor-pointer text-slate-400 hover:text-white"
       >
         ✕
       </button>
