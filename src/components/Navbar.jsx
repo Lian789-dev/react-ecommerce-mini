@@ -25,8 +25,8 @@ function SearchBox() {
     <form className="hidden w-96 items-center overflow-hidden rounded-lg border border-slate-300 shadow-sm transition-all focus-within:ring-2 focus-within:ring-green-600 sm:flex">
       <button
         type="submit"
-        className="cursor-pointer p-2 text-slate-400 transition-colors hover:text-slate-600"
         aria-label="Search"
+        className="cursor-pointer p-2 text-slate-400 transition-colors hover:text-slate-600"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -46,14 +46,14 @@ function SearchBox() {
       <input
         id="search"
         type="text"
-        className="h-full w-full px-2 py-1.5 text-sm text-slate-800 outline-none placeholder:text-slate-400"
         placeholder="Cari..."
         autoComplete="off"
+        className="h-full w-full px-2 py-1.5 text-sm text-slate-800 outline-none placeholder:text-slate-400"
       />
       <button
         type="button"
-        className="cursor-pointer p-2 text-slate-400 transition-colors hover:text-slate-600"
         aria-label="Voice Search"
+        className="cursor-pointer p-2 text-slate-400 transition-colors hover:text-slate-600"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -80,8 +80,8 @@ function NavbarAction({ cart, onToggleCart }) {
     <div className="flex items-center gap-1">
       <button
         type="button"
-        className="cursor-pointer p-2 text-slate-700 transition-colors hover:text-black sm:hidden"
         aria-label="Open Search"
+        className="cursor-pointer p-2 text-slate-700 transition-colors hover:text-black sm:hidden"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -100,9 +100,9 @@ function NavbarAction({ cart, onToggleCart }) {
       </button>
       <button
         type="button"
-        className="relative cursor-pointer p-2 text-slate-700 transition-colors hover:text-black"
         onClick={onToggleCart}
         aria-label="Open Cart"
+        className="relative cursor-pointer p-2 text-slate-700 transition-colors hover:text-black"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
