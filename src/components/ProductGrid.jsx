@@ -1,14 +1,6 @@
-export default function ProductGrid({
-  products,
-  onAddToCart,
-  subTitle,
-  onResetCategory,
-}) {
+export default function ProductGrid({ products, onAddToCart }) {
   return (
     <section className="min-h-[50dvh] px-[5%] py-4">
-      {subTitle && (
-        <SectionHeader subTitle={subTitle} onResetCategory={onResetCategory} />
-      )}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => (
           <ProductCard
@@ -19,28 +11,6 @@ export default function ProductGrid({
         ))}
       </div>
     </section>
-  );
-}
-
-function SectionHeader({ subTitle, onResetCategory }) {
-  const isAll = subTitle === "All";
-
-  return (
-    <div className="flex items-center justify-between py-4">
-      <h2 className="text-xl font-bold text-slate-900">
-        {isAll ? "Recommendation" : subTitle}
-      </h2>
-      {!isAll && onResetCategory && (
-        <button
-          type="button"
-          onClick={onResetCategory}
-          aria-label="Show All Product"
-          className="cursor-pointer text-sm font-semibold text-green-700 transition-all hover:text-green-800 hover:underline"
-        >
-          Show All
-        </button>
-      )}
-    </div>
   );
 }
 

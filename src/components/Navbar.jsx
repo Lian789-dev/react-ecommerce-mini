@@ -1,9 +1,19 @@
-export default function Navbar({ cart, onToggleCart }) {
+export default function Navbar({
+  cart,
+  onToggleCart,
+  searchQuery,
+  onSearchChange,
+  onSearchResult,
+}) {
   return (
     <div className="sticky top-0 left-0 z-40 w-full border-b border-slate-200 bg-white px-[5%]">
       <div className="flex h-20 w-full items-center justify-between sm:h-16">
         <Logo />
-        <SearchBox />
+        <SearchBox
+          searchQuery={searchQuery}
+          onSearchChange={onSearchChange}
+          onSearchResult={onSearchResult}
+        />
         <NavbarAction cart={cart} onToggleCart={onToggleCart} />
       </div>
     </div>
@@ -20,9 +30,15 @@ function Logo() {
   );
 }
 
-function SearchBox() {
+function SearchBox({ searchQuery, onSearchChange, onSearchResult }) {
   return (
-    <form className="hidden w-96 items-center overflow-hidden rounded-lg border border-slate-300 shadow-sm transition-all focus-within:ring-2 focus-within:ring-green-600 sm:flex">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSearchResult(searchQuery);
+      }}
+      className="hidden w-96 items-center overflow-hidden rounded-lg border border-slate-300 shadow-sm transition-all focus-within:ring-2 focus-within:ring-green-600 sm:flex"
+    >
       <button
         type="submit"
         aria-label="Search"
@@ -46,30 +62,59 @@ function SearchBox() {
       <input
         id="search"
         type="text"
+        value={searchQuery}
+        onChange={(e) => onSearchChange(e.target.value)}
         placeholder="Cari..."
         autoComplete="off"
         className="h-full w-full px-2 py-1.5 text-sm text-slate-800 outline-none placeholder:text-slate-400"
       />
-      <button
-        type="button"
-        aria-label="Voice Search"
-        className="cursor-pointer p-2 text-slate-400 transition-colors hover:text-slate-600"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
-          className="h-5 w-5"
+      {searchQuery.length === 0 ? (
+        <button
+          type="button"
+          aria-label="Voice Search"
+          className="cursor-pointer p-2 text-slate-400 transition-colors hover:text-slate-600"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z"
-          />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="h-5 w-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z"
+            />
+          </svg>
+        </button>
+      ) : (
+        <button
+          type="button"
+          onClick={() => {
+            onSearchChange("");
+            onSearchResult("");
+          }}
+          aria-label="Clear Query"
+          className="cursor-pointer p-2 text-slate-400 transition-colors hover:text-slate-600"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="h-5 w-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18 18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      )}
     </form>
   );
 }
