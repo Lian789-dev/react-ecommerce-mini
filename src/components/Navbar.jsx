@@ -1,20 +1,29 @@
 export default function Navbar({
+  inputRef,
   cart,
+  isOpenCart,
   onToggleCart,
+  onToggleMobileSearch,
   searchQuery,
   onSearchChange,
   onSearchResult,
 }) {
   return (
     <div className="sticky top-0 left-0 z-40 w-full border-b border-slate-200 bg-white px-[5%]">
-      <div className="flex h-20 w-full items-center justify-between sm:h-16">
+      <div className="flex h-16 w-full items-center justify-between">
         <Logo />
         <SearchBox
+          inputRef={inputRef}
           searchQuery={searchQuery}
           onSearchChange={onSearchChange}
           onSearchResult={onSearchResult}
         />
-        <NavbarAction cart={cart} onToggleCart={onToggleCart} />
+        <NavbarAction
+          cart={cart}
+          isOpenCart={isOpenCart}
+          onToggleCart={onToggleCart}
+          onToggleMobileSearch={onToggleMobileSearch}
+        />
       </div>
     </div>
   );
@@ -30,11 +39,12 @@ function Logo() {
   );
 }
 
-function SearchBox({ searchQuery, onSearchChange, onSearchResult }) {
+function SearchBox({ inputRef, searchQuery, onSearchChange, onSearchResult }) {
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
+        inputRef.current?.blur();
         onSearchResult(searchQuery);
       }}
       className="hidden w-96 items-center overflow-hidden rounded-lg border border-slate-300 shadow-sm transition-all focus-within:ring-2 focus-within:ring-green-600 sm:flex"
@@ -60,6 +70,7 @@ function SearchBox({ searchQuery, onSearchChange, onSearchResult }) {
         </svg>
       </button>
       <input
+        ref={inputRef}
         id="search"
         type="text"
         value={searchQuery}
@@ -119,30 +130,38 @@ function SearchBox({ searchQuery, onSearchChange, onSearchResult }) {
   );
 }
 
-function NavbarAction({ cart, onToggleCart }) {
+function NavbarAction({
+  cart,
+  isOpenCart,
+  onToggleCart,
+  onToggleMobileSearch,
+}) {
   const totalCartItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   return (
     <div className="flex items-center gap-1">
-      <button
-        type="button"
-        aria-label="Open Search"
-        className="cursor-pointer p-2 text-slate-700 transition-colors hover:text-black sm:hidden"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
-          className="h-5 w-5"
+      {!isOpenCart && (
+        <button
+          type="button"
+          onClick={onToggleMobileSearch}
+          aria-label="Open Search"
+          className="cursor-pointer p-2 text-slate-700 transition-colors hover:text-black sm:hidden"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-          />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="currentColor"
+            className="h-5 w-5"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+            />
+          </svg>
+        </button>
+      )}
       <button
         type="button"
         onClick={onToggleCart}
