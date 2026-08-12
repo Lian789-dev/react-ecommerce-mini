@@ -101,7 +101,7 @@ export default function App() {
         inputRef={desktopSearchInputRef}
         cart={cart}
         isOpenCart={isOpenCart}
-        onToggleCart={() => setIsOpenCart((prev) => !prev)}
+        onOpenCart={() => setIsOpenCart(true)}
         onToggleMobileSearch={() => setIsOpenMobileSearch((prev) => !prev)}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
