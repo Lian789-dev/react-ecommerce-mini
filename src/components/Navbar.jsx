@@ -3,7 +3,7 @@ export default function Navbar({
   cart,
   isOpenCart,
   onOpenCart,
-  onToggleMobileSearch,
+  onOpenMobileSearch,
   searchQuery,
   onSearchChange,
   onSearchResult,
@@ -22,7 +22,7 @@ export default function Navbar({
           cart={cart}
           isOpenCart={isOpenCart}
           onOpenCart={onOpenCart}
-          onToggleMobileSearch={onToggleMobileSearch}
+          onOpenMobileSearch={onOpenMobileSearch}
         />
       </div>
     </div>
@@ -130,14 +130,14 @@ function SearchBox({ inputRef, searchQuery, onSearchChange, onSearchResult }) {
   );
 }
 
-function NavbarAction({ cart, isOpenCart, onOpenCart, onToggleMobileSearch }) {
+function NavbarAction({ cart, isOpenCart, onOpenCart, onOpenMobileSearch }) {
   const totalCartItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   return (
     <div className="flex items-center gap-1">
       {!isOpenCart && (
         <button
           type="button"
-          onClick={onToggleMobileSearch}
+          onClick={onOpenMobileSearch}
           aria-label="Open Search"
           className="cursor-pointer p-2 text-slate-700 transition-colors hover:text-black sm:hidden"
         >
