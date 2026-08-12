@@ -1,10 +1,14 @@
-export default function CartDrawer({ cart, isOpenCart, onChangeQuantity }) {
-  if (!isOpenCart) return null;
-
+export default function CartDrawer({ cart, onChangeQuantity, onClose }) {
   return (
-    <div className="fixed inset-0 top-20 z-40 flex justify-end sm:top-16">
-      <div className="hidden flex-1 bg-slate-900/40 backdrop-blur-xs transition-opacity sm:block" />
-      <div className="flex h-full w-full flex-col border-l border-slate-200 bg-white shadow-2xl sm:max-w-md">
+    <div className="fixed inset-0 z-40 flex justify-end">
+      <div
+        onClick={onClose}
+        role="button"
+        aria-label="Back"
+        className="hidden flex-1 bg-slate-900/40 backdrop-blur-xs transition-opacity sm:block"
+      />
+      <div className="flex h-full w-full flex-col border-l border-slate-200 bg-slate-50 shadow-2xl sm:max-w-md">
+        <CartHeader cart={cart} onClose={onClose} />
         <div className="flex-1 overflow-y-auto p-4">
           {cart.length > 0 ? (
             <CartList cart={cart} onChangeQuantity={onChangeQuantity} />
@@ -12,13 +16,47 @@ export default function CartDrawer({ cart, isOpenCart, onChangeQuantity }) {
             <CartEmptyState />
           )}
         </div>
-
         {cart.length > 0 && <CartFooter cart={cart} />}
       </div>
     </div>
   );
 }
 
+function CartHeader({ cart, onClose }) {
+  return (
+    <div className="w-full flex-none border-b border-slate-200 bg-white px-4">
+      <div className="flex h-16 w-full items-center justify-between">
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Back"
+            className="cursor-pointer rounded-lg p-2 text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+              className="h-5 w-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+              />
+            </svg>
+          </button>
+          <p className="text-base font-bold text-slate-800">My Cart</p>
+        </div>
+        <p className="p-2 text-sm">
+          {cart.length} {cart.length > 1 ? "products" : "product"}
+        </p>
+      </div>
+    </div>
+  );
+}
 function CartList({ cart, onChangeQuantity }) {
   return (
     <ul className="flex flex-col gap-3">
@@ -35,23 +73,25 @@ function CartList({ cart, onChangeQuantity }) {
 
 function CartItem({ item, onChangeQuantity }) {
   return (
-    <li className="flex gap-3 rounded-xl border border-slate-200 bg-white p-3 shadow-xs">
-      <div className="h-20 w-20 flex-none overflow-hidden rounded-lg border border-slate-100 bg-slate-100">
+    <li className="flex items-center gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-xs transition-all hover:border-green-700 hover:shadow-md">
+      <div className="h-24 w-24 flex-none overflow-hidden rounded-xl border border-slate-100 bg-slate-50 p-1">
         <img
           src={item.image}
           alt={item.name}
-          className="h-full w-full object-cover"
+          className="h-full w-full rounded-lg object-contain"
         />
       </div>
-      <div className="flex h-20 min-w-0 flex-1 flex-col justify-between py-0.5">
-        <div>
+
+      <div className="flex min-w-0 flex-1 flex-col justify-between">
+        <div className="mb-3">
           <p className="truncate text-sm font-semibold text-slate-800">
             {item.name}
           </p>
-          <p className="truncate text-xs font-bold text-green-700">
+          <p className="mt-0.5 truncate text-xs font-bold text-green-700">
             Rp{(item.price * item.quantity).toLocaleString("id-ID")}
           </p>
         </div>
+
         <CartItemActions item={item} onChangeQuantity={onChangeQuantity} />
       </div>
     </li>
@@ -60,7 +100,7 @@ function CartItem({ item, onChangeQuantity }) {
 
 function CartItemActions({ item, onChangeQuantity }) {
   return (
-    <div className="mt-2 flex items-center gap-3">
+    <div className="flex items-center justify-between gap-3">
       <input
         type="number"
         value={item.quantity}
@@ -101,13 +141,15 @@ function CartFooter({ cart }) {
   return (
     <div className="flex flex-none flex-col gap-3 border-t border-slate-200 bg-slate-50 p-4">
       <div className="flex items-center justify-between text-sm text-slate-600">
-        <p>Total ({totalItems} products):</p>
+        <p>
+          Total ({totalItems} {totalItems > 1 ? "products" : "product"}):
+        </p>
         <p className="text-base font-bold text-green-700">Rp{totalPrice}</p>
       </div>
       <button
         type="button"
         aria-label="Checkout"
-        className="w-full cursor-pointer rounded-xl bg-green-700 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-green-800"
+        className="w-full cursor-pointer rounded-xl bg-green-700 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-green-800 active:scale-[0.98]"
       >
         Checkout
       </button>

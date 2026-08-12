@@ -146,11 +146,13 @@ export default function App() {
           onClose={() => setIsOpenMobileSearch(false)}
         />
       )}
-      <CartDrawer
-        cart={cart}
-        isOpenCart={isOpenCart}
-        onChangeQuantity={handleQuantityChange}
-      />
+      {isOpenCart && (
+        <CartDrawer
+          cart={cart}
+          onChangeQuantity={handleQuantityChange}
+          onClose={() => setIsOpenCart(false)}
+        />
+      )}
       {toastMessage && (
         <Toast message={toastMessage} onClose={() => setToastMessage("")} />
       )}
