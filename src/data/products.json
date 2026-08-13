@@ -1,114 +1,194 @@
 [
   {
     "id": 1,
-    "name": "Sepatu Sneakers Canvas",
+    "name": "Canvas Low-Top Sneakers",
     "price": 250000,
-    "category": "Sepatu",
-    "image": "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=500&auto=format&fit=crop&q=60"
+    "category": "Shoes",
+    "image": "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.8,
+    "sold": 240,
+    "location": "Jakarta Selatan",
+    "stock": 18,
+    "description": "Classic low-top canvas sneakers featuring a durable rubber sole and breathable fabric. Perfect for casual everyday style."
   },
   {
     "id": 2,
-    "name": "Kaos Polos Oversize",
+    "name": "Oversized Heavyweight T-Shirt",
     "price": 85000,
-    "category": "Pakaian",
-    "image": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=60"
+    "category": "Clothing",
+    "image": "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.7,
+    "sold": 510,
+    "location": "Bandung",
+    "stock": 35,
+    "description": "Premium 24s cotton oversized t-shirt with a relaxed fit. Soft, breathable, and ideal for streetwear aesthetics."
   },
   {
     "id": 3,
-    "name": "Jaket Denim Classic",
+    "name": "Classic Vintage Denim Jacket",
     "price": 320000,
-    "category": "Pakaian",
-    "image": "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=500&auto=format&fit=crop&q=60"
+    "category": "Clothing",
+    "image": "https://images.unsplash.com/photo-1576995853123-5a10305d93c0?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.9,
+    "sold": 185,
+    "location": "Jakarta Barat",
+    "stock": 12,
+    "description": "Timeless denim jacket crafted from durable cotton denim. Features dual chest pockets and buttoned cuffs."
   },
   {
     "id": 4,
-    "name": "Topi Baseball Casual",
+    "name": "Casual Cotton Baseball Cap",
     "price": 45000,
-    "category": "Aksesoris",
-    "image": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&auto=format&fit=crop&q=60"
+    "category": "Accessories",
+    "image": "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.6,
+    "sold": 320,
+    "location": "Surabaya",
+    "stock": 50,
+    "description": "Adjustable cotton twill baseball cap with a curved visor. Lightweight and comfortable for sun protection."
   },
   {
     "id": 5,
-    "name": "Sepatu Running Sport",
+    "name": "Pro Performance Running Shoes",
     "price": 450000,
-    "category": "Sepatu",
-    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60"
+    "category": "Shoes",
+    "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.9,
+    "sold": 410,
+    "location": "Tangerang",
+    "stock": 8,
+    "description": "High-performance running shoes designed with responsive cushioning and mesh upper for high breathability."
   },
   {
     "id": 6,
-    "name": "Smartphone Flagship Pro",
+    "name": "Flagship Pro Smartphone 5G",
     "price": 8500000,
-    "category": "Elektronik",
-    "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&auto=format&fit=crop&q=60"
+    "category": "Electronics",
+    "image": "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.9,
+    "sold": 95,
+    "location": "Jakarta Pusat",
+    "stock": 10,
+    "description": "Next-gen smartphone powered by a high-speed processor, 120Hz AMOLED display, and a triple pro camera system."
   },
   {
     "id": 7,
-    "name": "Laptop Slim Ultra",
+    "name": "Ultra-Slim Lightweight Laptop",
     "price": 12500000,
-    "category": "Elektronik",
-    "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&auto=format&fit=crop&q=60"
+    "category": "Electronics",
+    "image": "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.8,
+    "sold": 60,
+    "location": "Jakarta Pusat",
+    "stock": 5,
+    "description": "Ultra-portable laptop featuring an aluminum chassis, all-day battery life, and crystal-clear FHD display."
   },
   {
     "id": 8,
-    "name": "Smart TV 4K 43 Inch",
+    "name": "4K Ultra HD Smart TV 43\"",
     "price": 4200000,
-    "category": "Elektronik",
-    "image": "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500&auto=format&fit=crop&q=60"
+    "category": "Electronics",
+    "image": "https://images.unsplash.com/photo-1593784991095-a205069470b6?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.7,
+    "sold": 130,
+    "location": "Bekasi",
+    "stock": 14,
+    "description": "Immersive 43-inch Smart TV with HDR10 support, Dolby Audio, and built-in streaming apps for full entertainment."
   },
   {
     "id": 9,
-    "name": "Kulkas 2 Pintu Inverter",
+    "name": "Inverter Double-Door Refrigerator",
     "price": 3800000,
-    "category": "Elektronik",
-    "image": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=500&auto=format&fit=crop&q=60"
+    "category": "Electronics",
+    "image": "https://images.unsplash.com/photo-1584992236310-6edddc08acff?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.8,
+    "sold": 75,
+    "location": "Tangerang",
+    "stock": 6,
+    "description": "Energy-efficient double-door refrigerator with smart inverter compressor and multi-airflow cooling system."
   },
   {
     "id": 10,
-    "name": "Smartwatch Sport Edition",
+    "name": "Sport Edition Smartwatch",
     "price": 1150000,
-    "category": "Elektronik",
-    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60"
+    "category": "Electronics",
+    "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.7,
+    "sold": 280,
+    "location": "Jakarta Selatan",
+    "stock": 22,
+    "description": "Water-resistant smartwatch featuring heart rate tracking, GPS workout modes, and customizable watch faces."
   },
   {
     "id": 11,
-    "name": "Kemeja Flannel Kotak",
+    "name": "Plaid Flannel Long-Sleeve Shirt",
     "price": 175000,
-    "category": "Pakaian",
-    "image": "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&auto=format&fit=crop&q=60"
+    "category": "Clothing",
+    "image": "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.6,
+    "sold": 190,
+    "location": "Bandung",
+    "stock": 25,
+    "description": "Cozy long-sleeve flannel shirt in a stylish plaid pattern. Great as an outer shirt or casual button-down."
   },
   {
     "id": 12,
-    "name": "Jam Tangan Minimalis",
+    "name": "Minimalist Analog Wristwatch",
     "price": 299000,
-    "category": "Aksesoris",
-    "image": "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500&auto=format&fit=crop&q=60"
+    "category": "Accessories",
+    "image": "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.8,
+    "sold": 340,
+    "location": "Yogyakarta",
+    "stock": 19,
+    "description": "Sleek and modern analog wristwatch featuring a stainless steel case and genuine leather strap."
   },
   {
     "id": 13,
-    "name": "Kacamata Hitam Polarized",
+    "name": "Polarized UV400 Sunglasses",
     "price": 120000,
-    "category": "Aksesoris",
-    "image": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500&auto=format&fit=crop&q=60"
+    "category": "Accessories",
+    "image": "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.7,
+    "sold": 450,
+    "location": "Bali",
+    "stock": 40,
+    "description": "Stylish polarized sunglasses providing full UV400 protection with glare reduction for outdoor activities."
   },
   {
     "id": 14,
-    "name": "Hoodie Fleece Basic",
+    "name": "Basic Fleece Pullover Hoodie",
     "price": 210000,
-    "category": "Pakaian",
-    "image": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&auto=format&fit=crop&q=60"
+    "category": "Clothing",
+    "image": "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.8,
+    "sold": 260,
+    "location": "Bandung",
+    "stock": 30,
+    "description": "Warm and ultra-soft fleece hoodie featuring a kangaroo pocket and adjustable drawstring hood."
   },
   {
     "id": 15,
-    "name": "Sepatu Slip On Leather",
+    "name": "Genuine Leather Slip-On Loafers",
     "price": 380000,
-    "category": "Sepatu",
-    "image": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=500&auto=format&fit=crop&q=60"
+    "category": "Shoes",
+    "image": "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.7,
+    "sold": 110,
+    "location": "Medan",
+    "stock": 15,
+    "description": "Elegant leather slip-on loafers crafted with cushioned insoles for all-day formal or smart-casual comfort."
   },
   {
     "id": 16,
-    "name": "Headphone Wireless Bass",
+    "name": "Wireless Over-Ear Bass Headphones",
     "price": 650000,
-    "category": "Elektronik",
-    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60"
+    "category": "Electronics",
+    "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&auto=format&fit=crop&q=60",
+    "rating": 4.9,
+    "sold": 380,
+    "location": "Jakarta Barat",
+    "stock": 17,
+    "description": "Premium wireless Bluetooth headphones featuring deep bass response, active noise isolation, and 30-hour battery life."
   }
 ]
