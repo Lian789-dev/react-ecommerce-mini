@@ -10,7 +10,15 @@ import Toast from "./components/Toast";
 
 export default function App() {
   const [products] = useState(initialProducts);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    try {
+      const savedCart = localStorage.getItem("shopping_cart");
+      return savedCart ? JSON.parse(savedCart) : [];
+    } catch (error) {
+      console.error("Gagal membaca localStorage:", error);
+      return [];
+    }
+  });
   const [isOpenCart, setIsOpenCart] = useState(false);
   const [isOpenMobileSearch, setIsOpenMobileSearch] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -68,6 +76,9 @@ export default function App() {
     setSearchResult(results);
     setActiveSearchQuery(query);
   }
+  useEffect(() => {
+    localStorage.setItem("shopping_cart", JSON.stringify(cart));
+  }, [cart]);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 640px)");
