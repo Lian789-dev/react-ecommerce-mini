@@ -13,21 +13,21 @@ export default function ProductGrid({ products }) {
 function ProductCard({ product }) {
   return (
     <div className="group cursor-pointer overflow-hidden rounded-md border border-slate-200 shadow-sm transition-all hover:border-green-700 hover:shadow-md">
-      <div className="h-48 w-full overflow-hidden bg-slate-100">
+      <div className="aspect-square w-full overflow-hidden bg-slate-100">
         <img
           src={product.image}
           alt={product.name}
           className="h-full w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
         />
       </div>
-      <div className="flex flex-col p-4">
+      <div className="flex flex-col gap-2 p-2.5">
         <h3 className="line-clamp-2 text-sm font-semibold text-slate-800">
           {product.name}
         </h3>
-        <p className="mt-2 text-base font-bold text-green-700">
+        <p className="text-base font-bold text-green-700">
           Rp{product.price.toLocaleString("id-ID")}
         </p>
-        <div className="mt-2 flex items-center gap-2 text-xs">
+        <div className="flex items-center gap-2 text-xs">
           <div className="flex w-fit items-center gap-1 rounded-sm border border-slate-300 px-1 py-0.5 text-slate-800 shadow-sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +50,35 @@ function ProductCard({ product }) {
             {product.sold} {product.sold > 1 ? "Units Sold" : "Unit Sold"}
           </span>
         </div>
-        <div className="mt-2 flex items-center gap-1 text-sm text-slate-800">
+        <div className="flex items-center justify-between text-sm text-slate-800">
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              aria-label="More Option"
+              className="shrink-0 rounded p-1 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+                className="h-4 w-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+                />
+              </svg>
+            </button>
+            <p className="truncate">{product.location}</p>
+          </div>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -62,15 +90,9 @@ function ProductCard({ product }) {
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-            />
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"
+              d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
             />
           </svg>
-          <p className="truncate">{product.location}</p>
         </div>
         {/* <ProductCardAction product={product} onAddToCart={onAddToCart} /> */}
       </div>
