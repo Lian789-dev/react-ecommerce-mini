@@ -20,8 +20,7 @@ export default function App() {
       return [];
     }
   });
-  const [isOpenCart, setIsOpenCart] = useState(false);
-  const [isOpenMobileSearch, setIsOpenMobileSearch] = useState(false);
+  const [activeModal, setActiveModal] = useState(null);
   const [toastMessage, setToastMessage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -36,20 +35,20 @@ export default function App() {
   const mobileSearchInputRef = useRef(null);
 
   function handleAddToCart(newItem) {
+    const addQty = newItem.quantity || 1;
     setCart((prevCart) => {
       const isExist = prevCart.find((product) => product.id === newItem.id);
       if (isExist) {
         return prevCart.map((product) =>
           product.id === newItem.id
-            ? { ...product, quantity: product.quantity + 1 }
+            ? { ...product, quantity: product.quantity + addQty }
             : product
         );
       }
-      return [...prevCart, { ...newItem, quantity: 1 }];
+      return [...prevCart, { ...newItem, quantity: addQty }];
     });
     setToastMessage(`"${newItem.name}" added to cart!`);
   }
-
   function handleQuantityChange(productId, newQuantity) {
     const qty = parseInt(newQuantity, 10);
 
@@ -89,7 +88,7 @@ export default function App() {
       if (e.matches) {
         const isMobileFocused =
           document.activeElement === mobileSearchInputRef.current;
-        setIsOpenMobileSearch(false);
+        setActiveModal(null);
         if (isMobileFocused) {
           setTimeout(() => {
             desktopSearchInputRef.current?.focus();
@@ -100,13 +99,13 @@ export default function App() {
           document.activeElement === desktopSearchInputRef.current;
 
         if (isDesktopFocused) {
-          setIsOpenMobileSearch(true);
+          setActiveModal("mobile search");
         }
       }
     };
     mediaQuery.addEventListener("change", handleLayoutChange);
     return () => mediaQuery.removeEventListener("change", handleLayoutChange);
-  }, [isOpenMobileSearch]);
+  }, [setActiveModal]);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -114,13 +113,16 @@ export default function App() {
         inputRef={desktopSearchInputRef}
         cart={cart}
         selectedProduct={selectedProduct}
-        isOpenCart={isOpenCart}
-        onOpenCart={() => setIsOpenCart(true)}
-        onOpenMobileSearch={() => setIsOpenMobileSearch(true)}
+        activeModal={activeModal}
+        onOpenCart={() => setActiveModal("cart")}
+        onOpenMobileSearch={() => setActiveModal("mobile search")}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         onSearchResult={handleSearchResult}
-        onClose={() => setSelectedProduct(null)}
+        onClose={() => {
+          setSelectedProduct(null);
+          setActiveModal(null);
+        }}
       />
       <main>
         {activeSearchQuery ? (
@@ -131,7 +133,8 @@ export default function App() {
             />
             <ProductGrid
               products={searchResult}
-              onSelectedProduct={() => setSelectedProduct}
+              onSelectedProduct={setSelectedProduct}
+              onActiveModal={() => setActiveModal("product detail")}
             />
           </>
         ) : (
@@ -148,31 +151,33 @@ export default function App() {
             <ProductGrid
               products={filteredProducts}
               onSelectedProduct={setSelectedProduct}
+              onActiveModal={() => setActiveModal("product detail")}
             />
           </>
         )}
       </main>
-      {isOpenMobileSearch && (
+
+      {activeModal === "mobile search" && (
         <MobileSearchDrawer
           inputRef={mobileSearchInputRef}
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
           onSearchResult={handleSearchResult}
-          onClose={() => setIsOpenMobileSearch(false)}
+          onClose={() => setActiveModal(null)}
         />
       )}
-      {isOpenCart && (
+      {activeModal === "cart" && (
         <CartDrawer
           cart={cart}
           onChangeQuantity={handleQuantityChange}
-          onClose={() => setIsOpenCart(false)}
+          onClose={() => setActiveModal(null)}
         />
       )}
-      {selectedProduct && (
+      {activeModal === "product detail" && (
         <ProductDetailView
           product={selectedProduct}
-          onOpenMobileSearch={() => setIsOpenMobileSearch(true)}
-          onOpenCart={() => setIsOpenCart(true)}
+          onOpenMobileSearch={() => setActiveModal("mobile search")}
+          onOpenCart={() => setActiveModal("cart")}
           onAddToCart={handleAddToCart}
         />
       )}
