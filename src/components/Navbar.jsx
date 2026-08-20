@@ -2,7 +2,6 @@ export default function Navbar({
   inputRef,
   cart,
   selectedProduct,
-  isOpenCart,
   onOpenCart,
   onOpenMobileSearch,
   searchQuery,
@@ -22,7 +21,6 @@ export default function Navbar({
         />
         <NavbarAction
           cart={cart}
-          isOpenCart={isOpenCart}
           onOpenCart={onOpenCart}
           onOpenMobileSearch={onOpenMobileSearch}
         />
@@ -59,9 +57,27 @@ function Logo() {
   return (
     <a
       href="#"
-      className="block text-xl font-bold tracking-tight text-slate-900 transition-opacity hover:opacity-80"
+      className="group flex items-center gap-2 transition-transform active:scale-95"
     >
-      Logo
+      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-green-600 text-white shadow-sm transition-colors group-hover:bg-green-700">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="2"
+          stroke="currentColor"
+          className="h-5 w-5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+          />
+        </svg>
+      </div>
+      <span className="text-lg font-black tracking-tight text-slate-800">
+        Shopping<span className="text-green-600">.</span>
+      </span>
     </a>
   );
 }
@@ -79,7 +95,7 @@ function SearchBox({ inputRef, searchQuery, onSearchChange, onSearchResult }) {
       <button
         type="submit"
         aria-label="Search"
-        className="cursor-pointer p-2 text-slate-400 transition-colors hover:text-slate-600"
+        className="cursor-pointer p-2 text-slate-400 transition-colors hover:text-green-700"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +126,7 @@ function SearchBox({ inputRef, searchQuery, onSearchChange, onSearchResult }) {
         <button
           type="button"
           aria-label="Voice Search"
-          className="cursor-pointer p-2 text-slate-400 transition-colors hover:text-slate-600"
+          className="cursor-pointer p-2 text-slate-400 transition-colors hover:text-green-700"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +151,7 @@ function SearchBox({ inputRef, searchQuery, onSearchChange, onSearchResult }) {
             onSearchResult("");
           }}
           aria-label="Clear Query"
-          className="cursor-pointer p-2 text-slate-400 transition-colors hover:text-slate-600"
+          className="cursor-pointer p-2 text-slate-400 transition-colors hover:text-red-700"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -157,38 +173,36 @@ function SearchBox({ inputRef, searchQuery, onSearchChange, onSearchResult }) {
   );
 }
 
-function NavbarAction({ cart, isOpenCart, onOpenCart, onOpenMobileSearch }) {
+function NavbarAction({ cart, onOpenCart, onOpenMobileSearch }) {
   const totalCartItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   return (
     <div className="flex items-center gap-1">
-      {!isOpenCart && (
-        <button
-          type="button"
-          onClick={onOpenMobileSearch}
-          aria-label="Open Search"
-          className="cursor-pointer p-2 text-slate-700 transition-colors hover:text-black sm:hidden"
+      <button
+        type="button"
+        onClick={onOpenMobileSearch}
+        aria-label="Open Search"
+        className="cursor-pointer p-2 text-black transition-colors hover:text-green-700 active:text-green-700 sm:hidden"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="h-5 w-5"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            className="h-5 w-5"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-            />
-          </svg>
-        </button>
-      )}
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+          />
+        </svg>
+      </button>
       <button
         type="button"
         onClick={onOpenCart}
         aria-label="Open Cart"
-        className="relative cursor-pointer p-2 text-slate-700 transition-colors hover:text-black"
+        className="relative cursor-pointer p-2 text-black transition-colors hover:text-green-700 active:text-green-800"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

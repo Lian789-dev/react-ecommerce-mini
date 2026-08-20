@@ -113,7 +113,6 @@ export default function App() {
         inputRef={desktopSearchInputRef}
         cart={cart}
         selectedProduct={selectedProduct}
-        activeModal={activeModal}
         onOpenCart={() => setActiveModal("cart")}
         onOpenMobileSearch={() => setActiveModal("mobile search")}
         searchQuery={searchQuery}
