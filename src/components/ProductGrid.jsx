@@ -1,18 +1,26 @@
-export default function ProductGrid({ products }) {
+export default function ProductGrid({ products, onSelectedProduct }) {
   return (
     <section className="min-h-[50dvh] px-[5%] py-4">
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard
+            key={product.id}
+            product={product}
+            onSelectedProduct={onSelectedProduct}
+          />
         ))}
       </div>
     </section>
   );
 }
 
-function ProductCard({ product }) {
+function ProductCard({ product, onSelectedProduct }) {
   return (
-    <div className="group cursor-pointer overflow-hidden rounded-md border border-slate-200 shadow-sm transition-all hover:border-green-700 hover:shadow-md">
+    <div
+      onClick={() => onSelectedProduct(product)}
+      role="button"
+      className="group cursor-pointer overflow-hidden rounded-md border border-slate-200 shadow-sm transition-all hover:border-green-700 hover:shadow-md"
+    >
       <div className="aspect-square w-full overflow-hidden bg-slate-100">
         <img
           src={product.image}

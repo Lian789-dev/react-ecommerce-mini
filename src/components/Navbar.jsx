@@ -1,17 +1,19 @@
 export default function Navbar({
   inputRef,
   cart,
+  selectedProduct,
   isOpenCart,
   onOpenCart,
   onOpenMobileSearch,
   searchQuery,
   onSearchChange,
   onSearchResult,
+  onClose,
 }) {
   return (
     <div className="sticky top-0 left-0 z-40 w-full border-b border-slate-200 bg-white px-[5%]">
       <div className="flex h-16 w-full items-center justify-between">
-        <Logo />
+        {selectedProduct ? <ButtonBack onClose={onClose} /> : <Logo />}
         <SearchBox
           inputRef={inputRef}
           searchQuery={searchQuery}
@@ -26,6 +28,31 @@ export default function Navbar({
         />
       </div>
     </div>
+  );
+}
+function ButtonBack({ onClose }) {
+  return (
+    <button
+      type="button"
+      onClick={onClose}
+      aria-label="Back"
+      className="cursor-pointer rounded-lg p-2 text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth="1.5"
+        stroke="currentColor"
+        className="h-5 w-5"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+        />
+      </svg>
+    </button>
   );
 }
 function Logo() {

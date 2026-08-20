@@ -6,6 +6,7 @@ import CartDrawer from "./components/CartDrawer";
 import SectionHeader from "./components/SectionHeader";
 import ProductGrid from "./components/ProductGrid";
 import CategoryFilter from "./components/CategoryFilter";
+import ProductDetailView from "./components/ProductDetailView";
 import Toast from "./components/Toast";
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
   const [isOpenMobileSearch, setIsOpenMobileSearch] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [activeSearchQuery, setActiveSearchQuery] = useState("");
@@ -111,12 +113,14 @@ export default function App() {
       <Navbar
         inputRef={desktopSearchInputRef}
         cart={cart}
+        selectedProduct={selectedProduct}
         isOpenCart={isOpenCart}
         onOpenCart={() => setIsOpenCart(true)}
         onOpenMobileSearch={() => setIsOpenMobileSearch(true)}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         onSearchResult={handleSearchResult}
+        onClose={() => setSelectedProduct(null)}
       />
       <main>
         {activeSearchQuery ? (
@@ -127,7 +131,7 @@ export default function App() {
             />
             <ProductGrid
               products={searchResult}
-              onAddToCart={handleAddToCart}
+              onSelectedProduct={() => setSelectedProduct}
             />
           </>
         ) : (
@@ -143,7 +147,7 @@ export default function App() {
             />
             <ProductGrid
               products={filteredProducts}
-              onAddToCart={handleAddToCart}
+              onSelectedProduct={setSelectedProduct}
             />
           </>
         )}
@@ -162,6 +166,14 @@ export default function App() {
           cart={cart}
           onChangeQuantity={handleQuantityChange}
           onClose={() => setIsOpenCart(false)}
+        />
+      )}
+      {selectedProduct && (
+        <ProductDetailView
+          product={selectedProduct}
+          onOpenMobileSearch={() => setIsOpenMobileSearch(true)}
+          onOpenCart={() => setIsOpenCart(true)}
+          onAddToCart={handleAddToCart}
         />
       )}
       {toastMessage && (
