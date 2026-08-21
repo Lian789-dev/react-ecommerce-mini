@@ -3,13 +3,14 @@ export default function SectionHeader({
   searchQuery,
   resultCount,
   onResetCategory,
+  onClose,
 }) {
   return (
     <div className="px-[5%] pt-4">
       {searchQuery ? (
-        <div className="flex flex-col gap-2 rounded-xl border border-slate-200 bg-slate-100 p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-slate-100 p-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3 text-slate-800">
-            <div className="rounded-lg bg-green-100 p-2 text-green-700">
+            <div className="rounded-lg bg-white p-2 text-green-700">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -37,6 +38,27 @@ export default function SectionHeader({
               )}
             </div>
           </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Back"
+            className="rounded-full p-2 hover:bg-slate-200 hover:text-red-500"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+              className="h-5 w-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18 18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
         </div>
       ) : (
         <div className="flex items-center justify-between border-b border-slate-200 pb-3">

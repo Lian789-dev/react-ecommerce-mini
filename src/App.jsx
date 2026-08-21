@@ -141,6 +141,10 @@ export default function App() {
             <SectionHeader
               searchQuery={activeSearchQuery}
               resultCount={searchResult.length}
+              onClose={() => {
+                setActiveSearchQuery(null);
+                setSearchQuery("");
+              }}
             />
             <ProductGrid
               products={searchResult}
