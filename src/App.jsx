@@ -45,7 +45,7 @@ export default function App() {
             : product
         );
       }
-      return [...prevCart, { ...newItem, quantity: addQty }];
+      return [...prevCart, { ...newItem, quantity: addQty, checked: true }];
     });
     setToastMessage(`"${newItem.name}" added to cart!`);
   }
@@ -64,6 +64,15 @@ export default function App() {
       )
     );
   }
+
+  function handleChecked(productId, checked) {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id == productId ? { ...item, checked: !checked } : item
+      )
+    );
+  }
+
   function handleSearchResult(query) {
     const trimmedQuery = query.trim();
     if (!trimmedQuery) {
@@ -81,31 +90,34 @@ export default function App() {
     localStorage.setItem("shopping_cart", JSON.stringify(cart));
   }, [cart]);
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(min-width: 640px)");
+  // useEffect(() => {
+  //   const mediaQuery = window.matchMedia("(min-width: 640px)");
 
-    const handleLayoutChange = (e) => {
-      if (e.matches) {
-        const isMobileFocused =
-          document.activeElement === mobileSearchInputRef.current;
-        setActiveModal(null);
-        if (isMobileFocused) {
-          setTimeout(() => {
-            desktopSearchInputRef.current?.focus();
-          }, 50);
-        }
-      } else {
-        const isDesktopFocused =
-          document.activeElement === desktopSearchInputRef.current;
+  //   const handleLayoutChange = (e) => {
+  //     if (e.matches) {
+  //       // 🟢 1. Masuk Desktop: Tutup modal mobile search karena desktop punya SearchBox sendiri
+  //       setActiveModal((prev) => (prev === "mobile search" ? null : prev));
 
-        if (isDesktopFocused) {
-          setActiveModal("mobile search");
-        }
-      }
-    };
-    mediaQuery.addEventListener("change", handleLayoutChange);
-    return () => mediaQuery.removeEventListener("change", handleLayoutChange);
-  }, [setActiveModal]);
+  //       // 🟢 2. Jika input mobile search tadi lagi fokus, pindahkan fokus ke input desktop
+  //       if (document.activeElement === mobileSearchInputRef.current) {
+  //         setTimeout(() => {
+  //           desktopSearchInputRef.current?.focus();
+  //         }, 50);
+  //       }
+  //     } else {
+  //       // 🟢 3. Masuk Mobile: Jika input desktop lagi fokus, baru buka drawer mobile search
+  //       if (document.activeElement === desktopSearchInputRef.current) {
+  //         setActiveModal("mobile search");
+  //         setTimeout(() => {
+  //           mobileSearchInputRef.current?.focus();
+  //         }, 50);
+  //       }
+  //     }
+  //   };
+
+  //   mediaQuery.addEventListener("change", handleLayoutChange);
+  //   return () => mediaQuery.removeEventListener("change", handleLayoutChange);
+  // }, []);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -169,6 +181,7 @@ export default function App() {
         <CartDrawer
           cart={cart}
           onChangeQuantity={handleQuantityChange}
+          onChecked={handleChecked}
           onClose={() => setActiveModal(null)}
         />
       )}
