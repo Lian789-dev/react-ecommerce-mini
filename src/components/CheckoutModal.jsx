@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { useEffect } from "react";
 
 export default function CheckoutModal({ products, onClose }) {
+  const [selectedPayment, setSelectedPayment] = useState("qris");
   const subtotal = products
     .map((product) => product.price * product.quantity)
     .reduce((sum, product) => sum + product, 0)
@@ -19,7 +21,10 @@ export default function CheckoutModal({ products, onClose }) {
           <ProductList products={products} />
           <div className="flex flex-1 flex-col gap-2">
             <Address />
-            <PaymentMethod />
+            <PaymentMethod
+              selectedPayment={selectedPayment}
+              onSelectedPayment={setSelectedPayment}
+            />
             <PaymentDetails subtotal={subtotal} />
           </div>
         </div>
@@ -148,7 +153,7 @@ function ProductCard({ product }) {
   );
 }
 
-function PaymentMethod() {
+function PaymentMethod({ selectedPayment, onSelectedPayment }) {
   const payment = [
     {
       id: "qris",
@@ -219,13 +224,15 @@ function PaymentMethod() {
       <h2 className="py-3 text-base font-bold">Payment Method</h2>
       <div className="flex flex-col gap-2">
         {payment.map((item) => (
-          <div
+          <button
             key={item.id}
-            className={`flex items-center gap-2 p-2 text-sm ${item.active === true ? "bg-slate-200" : ""}`}
+            type="button"
+            onClick={() => onSelectedPayment(item.id)}
+            className={`flex items-center gap-2 p-2 text-sm ${selectedPayment === item.id ? "bg-slate-200" : ""}`}
           >
             {item.icon}
             <p>{item.title}</p>
-          </div>
+          </button>
         ))}
       </div>
     </div>
@@ -244,7 +251,7 @@ function PaymentDetails({ subtotal }) {
         <p>Total Payment</p>
         <p>Rp{subtotal}</p>
       </div>
-      <div className="pt-2 pb-4">
+      <div className="hidden pt-2 pb-4 md:block">
         <ButtonOrder />
       </div>
     </div>
