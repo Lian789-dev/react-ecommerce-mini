@@ -7,6 +7,7 @@ import SectionHeader from "./components/SectionHeader";
 import ProductGrid from "./components/ProductGrid";
 import CategoryFilter from "./components/CategoryFilter";
 import ProductDetailView from "./components/ProductDetailView";
+import CheckoutModal from "./components/CheckoutModal";
 import Toast from "./components/Toast";
 
 export default function App() {
@@ -186,6 +187,7 @@ export default function App() {
           cart={cart}
           onChangeQuantity={handleQuantityChange}
           onChecked={handleChecked}
+          onCheckout={() => setActiveModal("checkout")}
           onClose={() => setActiveModal(null)}
         />
       )}
@@ -195,6 +197,12 @@ export default function App() {
           onOpenMobileSearch={() => setActiveModal("mobile search")}
           onOpenCart={() => setActiveModal("cart")}
           onAddToCart={handleAddToCart}
+        />
+      )}
+      {activeModal === "checkout" && (
+        <CheckoutModal
+          products={cart.filter((item) => item.checked === true)}
+          onClose={() => setActiveModal(null)}
         />
       )}
       {toastMessage && (

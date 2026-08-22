@@ -4,6 +4,7 @@ export default function CartDrawer({
   cart,
   onChangeQuantity,
   onChecked,
+  onCheckout,
   onClose,
 }) {
   useEffect(() => {
@@ -35,7 +36,7 @@ export default function CartDrawer({
             <CartEmptyState />
           )}
         </div>
-        {cart.length > 0 && <CartFooter cart={cart} />}
+        {cart.length > 0 && <CartFooter cart={cart} onCheckout={onCheckout} />}
       </div>
     </div>
   );
@@ -231,7 +232,7 @@ function CartItemActions({ item, onChangeQuantity }) {
   );
 }
 
-function CartFooter({ cart }) {
+function CartFooter({ cart, onCheckout }) {
   const totalItems = cart
     .filter((item) => item.checked === true)
     .reduce((sum, item) => sum + item.quantity, 0);
@@ -252,6 +253,7 @@ function CartFooter({ cart }) {
       </div>
       <button
         type="button"
+        onClick={onCheckout}
         aria-label="Checkout"
         className="w-full cursor-pointer rounded-xl bg-green-700 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-green-800 active:scale-[0.98]"
       >
