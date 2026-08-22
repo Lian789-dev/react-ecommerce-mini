@@ -8,6 +8,7 @@ import ProductGrid from "./components/ProductGrid";
 import CategoryFilter from "./components/CategoryFilter";
 import ProductDetailView from "./components/ProductDetailView";
 import CheckoutModal from "./components/CheckoutModal";
+import { OrderSuccessModal } from "./components/OrderSuccessModal";
 import Toast from "./components/Toast";
 
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
       return [];
     }
   });
+  const [orders, setOrders] = useState([]);
   const [activeModal, setActiveModal] = useState(null);
   const [toastMessage, setToastMessage] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -73,7 +75,10 @@ export default function App() {
       )
     );
   }
-
+  function handleOrderSuccess(newOrder) {
+    setOrders((prevOrder) => [newOrder, ...prevOrder]);
+    setCart((prevCart) => prevCart.filter((item) => item.checked !== true));
+  }
   function handleSearchResult(query) {
     const trimmedQuery = query.trim();
     if (!trimmedQuery) {
@@ -202,6 +207,14 @@ export default function App() {
       {activeModal === "checkout" && (
         <CheckoutModal
           products={cart.filter((item) => item.checked === true)}
+          onOrderSuccsess={handleOrderSuccess}
+          onOpenOrderSuccess={() => setActiveModal("checkout success")}
+          onClose={() => setActiveModal(null)}
+        />
+      )}
+      {activeModal === "checkout success" && (
+        <OrderSuccessModal
+          item={orders[0]}
           onClose={() => setActiveModal(null)}
         />
       )}

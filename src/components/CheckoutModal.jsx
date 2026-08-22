@@ -1,18 +1,36 @@
 import { useState } from "react";
 import { useEffect } from "react";
 
-export default function CheckoutModal({ products, onClose }) {
+export default function CheckoutModal({
+  products,
+  onOrderSuccsess,
+  onOpenOrderSuccess,
+  onClose,
+}) {
   const [selectedPayment, setSelectedPayment] = useState("qris");
   const subtotal = products
     .map((product) => product.price * product.quantity)
-    .reduce((sum, product) => sum + product, 0)
-    .toLocaleString("id-ID");
+    .reduce((sum, product) => sum + product, 0);
+  const subtotalFormater = subtotal.toLocaleString("id-ID");
 
+  function handlePlaceOrder() {
+    const orderData = {
+      id: `INV-${Math.floor(100000 + Math.random() * 900000)}`,
+      items: products,
+      totalAmount: subtotal,
+      paymentMethod: selectedPayment,
+      createdAt: new Date().toISOString(),
+    };
+    if (onOrderSuccsess) {
+      onOrderSuccsess(orderData);
+    }
+    onOpenOrderSuccess();
+  }
   useEffect(() => {
     const originalStyle = window.getComputedStyle(document.body).overflow;
     document.body.style.overflow = "hidden";
     return () => (document.body.style.overflow = originalStyle);
-  });
+  }, []);
   return (
     <div className="fixed top-0 left-0 z-50 h-full w-full bg-slate-50">
       <div className="flex h-full w-full flex-col">
@@ -25,10 +43,13 @@ export default function CheckoutModal({ products, onClose }) {
               selectedPayment={selectedPayment}
               onSelectedPayment={setSelectedPayment}
             />
-            <PaymentDetails subtotal={subtotal} />
+            <PaymentDetails
+              subtotal={subtotalFormater}
+              onOrder={handlePlaceOrder}
+            />
           </div>
         </div>
-        <CheckoutFooter total={subtotal} />
+        <CheckoutFooter total={subtotalFormater} onOrder={handlePlaceOrder} />
       </div>
     </div>
   );
@@ -239,7 +260,7 @@ function PaymentMethod({ selectedPayment, onSelectedPayment }) {
   );
 }
 
-function PaymentDetails({ subtotal }) {
+function PaymentDetails({ subtotal, onOrder }) {
   return (
     <div className="w-full rounded-lg border border-slate-300 bg-white px-4 shadow-xs">
       <h2 className="py-3 text-base font-bold">Payment Details</h2>
@@ -252,27 +273,28 @@ function PaymentDetails({ subtotal }) {
         <p>Rp{subtotal}</p>
       </div>
       <div className="hidden pt-2 pb-4 md:block">
-        <ButtonOrder />
+        <ButtonOrder onOrder={onOrder} />
       </div>
     </div>
   );
 }
 
-function CheckoutFooter({ total }) {
+function CheckoutFooter({ total, onOrder }) {
   return (
     <div className="flex w-full flex-none flex-col gap-3 border-t border-slate-300 bg-white px-[5%] py-4 md:hidden">
       <div className="flex items-center justify-between font-bold">
         <p>Total</p>
         <p className="text-green-700">Rp{total}</p>
       </div>
-      <ButtonOrder />
+      <ButtonOrder onOrder={onOrder} />
     </div>
   );
 }
-function ButtonOrder() {
+function ButtonOrder({ onOrder }) {
   return (
     <button
       type="button"
+      onClick={onOrder}
       aria-label="Place an Order"
       className="w-full rounded-xl bg-green-700 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-colors hover:bg-green-800 active:scale-[0.98]"
     >
