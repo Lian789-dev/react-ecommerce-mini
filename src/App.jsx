@@ -22,6 +22,25 @@ export default function App() {
       return [];
     }
   });
+  const defaultAddress = {
+    name: "Lian",
+    telp: "085724720023",
+    fullAddress: "Jawa Barat, Majalengka, xxx, xxx",
+  };
+
+  const [address, setAddress] = useState(() => {
+    try {
+      const saved = localStorage.getItem("user_address");
+      const parsed = saved ? JSON.parse(saved) : null;
+
+      if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+        return parsed;
+      }
+      return defaultAddress;
+    } catch {
+      return defaultAddress;
+    }
+  });
   const [orders, setOrders] = useState([]);
   const [activeModal, setActiveModal] = useState(null);
   const [toastMessage, setToastMessage] = useState("");
@@ -92,39 +111,15 @@ export default function App() {
     setSearchResult(results);
     setActiveSearchQuery(query);
   }
+  console.log(address);
+
   useEffect(() => {
     localStorage.setItem("shopping_cart", JSON.stringify(cart));
   }, [cart]);
 
-  // useEffect(() => {
-  //   const mediaQuery = window.matchMedia("(min-width: 640px)");
-
-  //   const handleLayoutChange = (e) => {
-  //     if (e.matches) {
-  //       // 🟢 1. Masuk Desktop: Tutup modal mobile search karena desktop punya SearchBox sendiri
-  //       setActiveModal((prev) => (prev === "mobile search" ? null : prev));
-
-  //       // 🟢 2. Jika input mobile search tadi lagi fokus, pindahkan fokus ke input desktop
-  //       if (document.activeElement === mobileSearchInputRef.current) {
-  //         setTimeout(() => {
-  //           desktopSearchInputRef.current?.focus();
-  //         }, 50);
-  //       }
-  //     } else {
-  //       // 🟢 3. Masuk Mobile: Jika input desktop lagi fokus, baru buka drawer mobile search
-  //       if (document.activeElement === desktopSearchInputRef.current) {
-  //         setActiveModal("mobile search");
-  //         setTimeout(() => {
-  //           mobileSearchInputRef.current?.focus();
-  //         }, 50);
-  //       }
-  //     }
-  //   };
-
-  //   mediaQuery.addEventListener("change", handleLayoutChange);
-  //   return () => mediaQuery.removeEventListener("change", handleLayoutChange);
-  // }, []);
-
+  useEffect(() => {
+    localStorage.setItem("user_address", JSON.stringify(address));
+  }, [address]);
   return (
     <div className="min-h-screen bg-slate-50">
       <Navbar
@@ -207,7 +202,9 @@ export default function App() {
       {activeModal === "checkout" && (
         <CheckoutModal
           products={cart.filter((item) => item.checked === true)}
-          onOrderSuccsess={handleOrderSuccess}
+          address={address}
+          onUpdateAddress={setAddress}
+          onOrderSuccess={handleOrderSuccess}
           onOpenOrderSuccess={() => setActiveModal("checkout success")}
           onClose={() => setActiveModal(null)}
         />

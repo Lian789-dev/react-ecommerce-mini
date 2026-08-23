@@ -3,11 +3,15 @@ import { useEffect } from "react";
 
 export default function CheckoutModal({
   products,
-  onOrderSuccsess,
+  address,
+  onUpdateAddress,
+  onOrderSuccess,
   onOpenOrderSuccess,
   onClose,
 }) {
   const [selectedPayment, setSelectedPayment] = useState("qris");
+
+  const [isEditingAddress, setIsEditingAddress] = useState(false);
   const subtotal = products
     .map((product) => product.price * product.quantity)
     .reduce((sum, product) => sum + product, 0);
@@ -18,11 +22,12 @@ export default function CheckoutModal({
       id: `INV-${Math.floor(100000 + Math.random() * 900000)}`,
       items: products,
       totalAmount: subtotal,
+      address,
       paymentMethod: selectedPayment,
       createdAt: new Date().toISOString(),
     };
-    if (onOrderSuccsess) {
-      onOrderSuccsess(orderData);
+    if (onOrderSuccess) {
+      onOrderSuccess(orderData);
     }
     onOpenOrderSuccess();
   }
@@ -38,7 +43,10 @@ export default function CheckoutModal({
         <div className="flex flex-1 flex-col gap-4 overflow-auto px-[5%] py-4 md:flex-row">
           <ProductList products={products} />
           <div className="flex flex-1 flex-col gap-2">
-            <Address />
+            <Address
+              address={address}
+              onEdit={() => setIsEditingAddress(true)}
+            />
             <PaymentMethod
               selectedPayment={selectedPayment}
               onSelectedPayment={setSelectedPayment}
@@ -51,6 +59,13 @@ export default function CheckoutModal({
         </div>
         <CheckoutFooter total={subtotalFormater} onOrder={handlePlaceOrder} />
       </div>
+      {isEditingAddress && (
+        <AddressFormModal
+          address={address}
+          onSave={onUpdateAddress}
+          onClose={() => setIsEditingAddress(false)}
+        />
+      )}
     </div>
   );
 }
@@ -83,9 +98,14 @@ function Header({ onClose }) {
     </div>
   );
 }
-function Address() {
+function Address({ address, onEdit }) {
   return (
-    <div className="relative flex cursor-pointer gap-1 rounded-lg border border-slate-300 bg-white px-4 py-2 shadow-xs transition-colors hover:bg-slate-200">
+    <div
+      onClick={onEdit}
+      role="button"
+      aria-label="Update Address"
+      className="relative flex cursor-pointer gap-1 rounded-lg border border-slate-300 bg-white px-4 py-2 shadow-xs transition-colors hover:bg-slate-200"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -106,12 +126,13 @@ function Address() {
         />
       </svg>
       <div className="flex-1">
-        <p className="font-bold">lian</p>
-        <p className="text-sm text-slate-500">
-          Jawa Barat, Majalengka, xxx, xxx
+        <p className="font-bold">
+          {address.name}{" "}
+          <span className="text-xs font-normal">{`(${address.telp})`}</span>
         </p>
+        <p className="text-sm text-slate-500">{address.fullAddress}</p>
       </div>
-      <span className="absolute top-3/6 right-0 -translate-y-3/6">
+      <span className="absolute top-3/6 right-0 -translate-y-1/2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -300,5 +321,86 @@ function ButtonOrder({ onOrder }) {
     >
       Place an Order
     </button>
+  );
+}
+
+function AddressFormModal({ address, onSave, onClose }) {
+  const [formData, setFormData] = useState({ ...address });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSave(formData);
+    onClose();
+  };
+
+  return (
+    <div className="fixed inset-0 z-60 flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-xs">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl"
+      >
+        <h3 className="text-lg font-bold text-slate-800">
+          Edit Shipping Address
+        </h3>
+        <div className="mt-4 flex flex-col gap-3">
+          <div>
+            <label className="text-xs font-semibold text-slate-600">Name</label>
+            <input
+              type="text"
+              required
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+              className="mt-1 w-full rounded-lg border border-slate-300 p-2.5 text-sm outline-green-700"
+            />
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-slate-600">
+              No Telepon
+            </label>
+            <input
+              type="tel"
+              required
+              value={formData.telp}
+              onChange={(e) =>
+                setFormData({ ...formData, telp: e.target.value })
+              }
+              className="mt-1 w-full rounded-lg border border-slate-300 p-2.5 text-sm outline-green-700"
+            />
+          </div>
+
+          <div>
+            <label className="text-xs font-semibold text-slate-600">
+              Full Address
+            </label>
+            <textarea
+              required
+              rows="3"
+              value={formData.fullAddress}
+              onChange={(e) =>
+                setFormData({ ...formData, fullAddress: e.target.value })
+              }
+              className="mt-1 w-full rounded-lg border border-slate-300 p-2.5 text-sm outline-green-700"
+            />
+          </div>
+        </div>
+        <div className="mt-6 flex justify-end gap-2">
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-xl px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-100"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className="rounded-xl bg-green-700 px-4 py-2 text-sm font-semibold text-white hover:bg-green-800"
+          >
+            Save Address
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }
