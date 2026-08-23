@@ -94,6 +94,11 @@ export default function App() {
       )
     );
   }
+
+  function handleUpdateAddress(newAddress) {
+    setAddress(newAddress);
+    setToastMessage("Address updated successfully!");
+  }
   function handleOrderSuccess(newOrder) {
     setOrders((prevOrder) => [newOrder, ...prevOrder]);
     setCart((prevCart) => prevCart.filter((item) => item.checked !== true));
@@ -203,7 +208,7 @@ export default function App() {
         <CheckoutModal
           products={cart.filter((item) => item.checked === true)}
           address={address}
-          onUpdateAddress={setAddress}
+          onUpdateAddress={handleUpdateAddress}
           onOrderSuccess={handleOrderSuccess}
           onOpenOrderSuccess={() => setActiveModal("checkout success")}
           onClose={() => setActiveModal(null)}
