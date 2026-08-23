@@ -326,65 +326,116 @@ function ButtonOrder({ onOrder }) {
 
 function AddressFormModal({ address, onSave, onClose }) {
   const [formData, setFormData] = useState({ ...address });
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Name is required.";
+    } else if (formData.name.trim().length < 3) {
+      newErrors.name = "Name must be at least 3 characters long.";
+    }
+
+    const phoneRegex = /^(08|\+628)[0-9]{8,11}$/;
+    if (!formData.telp.trim()) {
+      newErrors.telp = "Phone number is required..";
+    } else if (!phoneRegex.test(formData.telp.trim())) {
+      newErrors.telp =
+        "Invalid mobile number format (e.g., 0857xxx or +628xxx, 10–14 digits).";
+    }
+
+    if (!formData.fullAddress.trim()) {
+      newErrors.fullAddress = "The full address must be filled in..";
+    } else if (formData.fullAddress.trim().length < 10) {
+      newErrors.fullAddress = "Address is too short (minimum 10 characters).";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave(formData);
-    onClose();
+    if (validate()) {
+      onSave(formData);
+      onClose();
+    }
+  };
+
+  const handleChange = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) {
+      setErrors((prev) => ({ ...prev, [field]: "" }));
+    }
   };
 
   return (
     <div className="fixed inset-0 z-60 flex items-center justify-center bg-slate-900/50 p-4 backdrop-blur-xs">
       <form
         onSubmit={handleSubmit}
+        noValidate
         className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl"
       >
         <h3 className="text-lg font-bold text-slate-800">
           Edit Shipping Address
         </h3>
         <div className="mt-4 flex flex-col gap-3">
+          {/* Input Name */}
           <div>
             <label className="text-xs font-semibold text-slate-600">Name</label>
             <input
               type="text"
-              required
               value={formData.name}
-              onChange={(e) =>
-                setFormData({ ...formData, name: e.target.value })
-              }
-              className="mt-1 w-full rounded-lg border border-slate-300 p-2.5 text-sm outline-green-700"
+              onChange={(e) => handleChange("name", e.target.value)}
+              className={`mt-1 w-full rounded-lg border p-2.5 text-sm outline-green-700 ${
+                errors.name ? "border-red-500 bg-red-50" : "border-slate-300"
+              }`}
             />
+            {errors.name && (
+              <p className="mt-1 text-xs text-red-500">{errors.name}</p>
+            )}
           </div>
+
+          {/* Input No Telepon */}
           <div>
             <label className="text-xs font-semibold text-slate-600">
               No Telepon
             </label>
             <input
               type="tel"
-              required
               value={formData.telp}
-              onChange={(e) =>
-                setFormData({ ...formData, telp: e.target.value })
-              }
-              className="mt-1 w-full rounded-lg border border-slate-300 p-2.5 text-sm outline-green-700"
+              onChange={(e) => handleChange("telp", e.target.value)}
+              className={`mt-1 w-full rounded-lg border p-2.5 text-sm outline-green-700 ${
+                errors.telp ? "border-red-500 bg-red-50" : "border-slate-300"
+              }`}
             />
+            {errors.telp && (
+              <p className="mt-1 text-xs text-red-500">{errors.telp}</p>
+            )}
           </div>
 
+          {/* Input Full Address */}
           <div>
             <label className="text-xs font-semibold text-slate-600">
               Full Address
             </label>
             <textarea
-              required
               rows="3"
               value={formData.fullAddress}
-              onChange={(e) =>
-                setFormData({ ...formData, fullAddress: e.target.value })
-              }
-              className="mt-1 w-full rounded-lg border border-slate-300 p-2.5 text-sm outline-green-700"
+              onChange={(e) => handleChange("fullAddress", e.target.value)}
+              className={`mt-1 w-full rounded-lg border p-2.5 text-sm outline-green-700 ${
+                errors.fullAddress
+                  ? "border-red-500 bg-red-50"
+                  : "border-slate-300"
+              }`}
             />
+            {errors.fullAddress && (
+              <p className="mt-1 text-xs text-red-500">{errors.fullAddress}</p>
+            )}
           </div>
         </div>
+
         <div className="mt-6 flex justify-end gap-2">
           <button
             type="button"
