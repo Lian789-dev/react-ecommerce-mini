@@ -22,7 +22,7 @@ export default function CategoryFilter() {
               key={category}
               category={category}
               image={sampleProduct?.image}
-              onSelect={() => navigate(`/category/${category}`)}
+              onSelect={() => navigate(`/category/${category}?sortBy=favorite`)}
             />
           );
         })}

@@ -6,8 +6,6 @@ export const useCategoryStore = create((set) => ({
   categories: [
     ...new Set(InitialProduct.map((item) => item.category).filter(Boolean)),
   ],
-  sortBy: "favorite",
-
   toggleLocation: (location) =>
     set((state) => {
       const exists = state.selectedLocations.includes(location);
@@ -17,5 +15,4 @@ export const useCategoryStore = create((set) => ({
           : [...state.selectedLocations, location],
       };
     }),
-  setSortBy: (sortType) => set({ sortBy: sortType }),
 }));
