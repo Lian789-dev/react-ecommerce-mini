@@ -34,7 +34,9 @@ export default function NavList() {
       <li className="flex items-center gap-3">
         <button
           type="button"
-          onClick={() => navigate(`/category/${product.category}`)}
+          onClick={() =>
+            navigate(`/category/${product.category}?sortBy=favorite`)
+          }
           aria-label={product.category}
           className="cursor-pointer text-green-700"
         >

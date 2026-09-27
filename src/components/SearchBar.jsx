@@ -26,7 +26,9 @@ export default function SearchBar({ autoFocus = false }) {
       document.activeElement.blur();
     }
     if (keyword.trim()) {
-      navigate(`/search?q=${encodeURIComponent(keyword.trim())}`);
+      navigate(
+        `/search?q=${encodeURIComponent(keyword.trim())}&sortBy=favorite`
+      );
     }
     onCloseModal();
   };
