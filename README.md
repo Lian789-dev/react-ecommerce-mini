@@ -1,5 +1,7 @@
 # 🛒 Mini E-Commerce App
 
+🌐 **Live Demo:** [react-ecommerce-mini.vercel.app](https://react-ecommerce-mini.vercel.app)
+
 A modern, responsive, and interactive E-Commerce web application built with **ReactJS**, **Zustand**, **React Router**, and **Tailwind CSS**. Features dynamic URL-based product filtering & sorting, real-time search with history, and an interactive shopping cart.
 
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
