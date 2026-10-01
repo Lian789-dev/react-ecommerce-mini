@@ -17,10 +17,7 @@ export default function MobileSearchModal() {
 
   if (!isOpen) return null;
   return (
-    <div
-      label="Search"
-      className="fixed top-0 left-0 z-50 h-dvh w-full bg-white"
-    >
+    <div className="fixed top-0 left-0 z-50 h-dvh w-full bg-white md:hidden">
       <div className="flex h-full flex-col">
         <Header />
         <div className="flex-1 scrollbar-none overflow-y-auto px-4 pb-10 outline-none">
@@ -33,7 +30,7 @@ export default function MobileSearchModal() {
 
 function Header() {
   return (
-    <div className="sticky top-0 left-0 z-60 w-full border-b border-slate-200 bg-white px-4 sm:px-6">
+    <div className="w-full border-b border-slate-200 bg-white px-4 sm:px-6">
       <div className="flex h-16 w-full items-center justify-between gap-2">
         <ButtonBack />
         <SearchBar />
