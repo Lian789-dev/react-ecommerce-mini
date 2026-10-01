@@ -1,12 +1,32 @@
+import { useRef, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useModalStore } from "../store/useModalStore";
-import SearchBar from "./SearchBar";
-
+import { useSearchStore } from "../store/useSearchStore";
+import AutoComplete from "./AutoComplete";
 export default function MobileSearchModal() {
   const activeModal = useModalStore((state) => state.activeModal);
-  if (activeModal !== "mobile-search") return null;
+  const isOpen = activeModal === "mobile-search";
+  useEffect(() => {
+    if (!isOpen) return;
+    const originalStyle = window.getComputedStyle(document.body).overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalStyle;
+    };
+  }, [isOpen]);
+
+  if (!isOpen) return null;
   return (
-    <div className="fixed top-0 left-0 z-50 h-dvh w-full bg-slate-50 sm:hidden">
-      <Header />
+    <div
+      label="Search"
+      className="fixed top-0 left-0 z-50 h-dvh w-full bg-white"
+    >
+      <div className="flex h-full flex-col">
+        <Header />
+        <div className="flex-1 scrollbar-none overflow-y-auto px-4 pb-10 outline-none">
+          <AutoComplete />
+        </div>
+      </div>
     </div>
   );
 }
@@ -16,12 +36,89 @@ function Header() {
     <div className="sticky top-0 left-0 z-60 w-full border-b border-slate-200 bg-white px-4 sm:px-6">
       <div className="flex h-16 w-full items-center justify-between gap-2">
         <ButtonBack />
-        <div className="w-full">
-          <SearchBar autoFocus={true} />
-        </div>
+        <SearchBar />
         <ButtonVoiceSearch />
       </div>
     </div>
+  );
+}
+function SearchBar() {
+  const inputValue = useSearchStore((state) => state.keyword);
+  const setInputValue = useSearchStore((state) => state.setKeyword);
+  const autoComplete = useSearchStore((state) => state.autoComplete);
+  const selectedIndex = useSearchStore((state) => state.selectedIndex);
+  const setSelectedIndex = useSearchStore((state) => state.setSelectedIndex);
+  const onCloseModal = useModalStore((state) => state.onCloseModal);
+  const [searchParams] = useSearchParams();
+  const searchQuery = searchParams.get("q") || "";
+  const navigate = useNavigate();
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setInputValue("");
+    }
+    setInputValue(searchQuery);
+  }, [searchQuery, setInputValue]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (selectedIndex >= 0 && autoComplete[selectedIndex]) {
+      navigate(
+        `/search?q=${encodeURIComponent(autoComplete[selectedIndex].name.trim())}&sortBy=favorite`
+      );
+      onCloseModal();
+      setSelectedIndex(-1);
+      return;
+    }
+
+    const cleanQuery = inputValue.trim();
+    if (cleanQuery) {
+      navigate(`/search?q=${encodeURIComponent(cleanQuery)}&sortBy=favorite`);
+      onCloseModal();
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (autoComplete.length === 0) return;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSelectedIndex(
+        selectedIndex < autoComplete.length - 1 ? selectedIndex + 1 : 0
+      );
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSelectedIndex(
+        selectedIndex > 0 ? selectedIndex - 1 : autoComplete.length - 1
+      );
+    } else if (e.key === "Escape") {
+      setSelectedIndex(-1);
+    }
+  };
+  return (
+    <form
+      onSubmit={handleSearch}
+      className="w-full rounded-lg border border-slate-300 shadow-sm transition-all focus-within:ring-2 focus-within:ring-green-600"
+    >
+      <input
+        ref={inputRef}
+        type="search"
+        value={inputValue}
+        onChange={(e) => {
+          setInputValue(e.target.value);
+          setSelectedIndex(-1);
+        }}
+        onKeyDown={handleKeyDown}
+        placeholder="Search...."
+        className="h-10 w-full px-2 outline-none"
+      />
+    </form>
   );
 }
 
@@ -32,7 +129,7 @@ function ButtonBack() {
       type="button"
       onClick={onCloseModal}
       aria-label="Back"
-      className="p-2"
+      className="cursor-pointer p-2"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
