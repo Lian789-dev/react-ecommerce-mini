@@ -30,7 +30,7 @@ export default function MobileSearchModal() {
 
 function Header() {
   return (
-    <div className="w-full border-b border-slate-200 bg-white px-4 sm:px-6">
+    <div className="w-full flex-none border-b border-slate-200 bg-white px-4 sm:px-6">
       <div className="flex h-16 w-full items-center justify-between gap-2">
         <ButtonBack />
         <SearchBar />
