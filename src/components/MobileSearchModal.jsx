@@ -17,10 +17,10 @@ export default function MobileSearchModal() {
 
   if (!isOpen) return null;
   return (
-    <div className="fixed top-0 left-0 z-50 h-dvh w-full bg-white md:hidden">
+    <div className="fixed inset-0 z-50 h-dvh w-full overflow-hidden bg-white md:hidden">
       <div className="flex h-full flex-col">
         <Header />
-        <div className="flex-1 scrollbar-none overflow-y-auto px-4 pb-10 outline-none">
+        <div className="flex-1 scrollbar-none overflow-y-auto overscroll-contain px-4 pb-10 outline-none">
           <AutoComplete />
         </div>
       </div>
