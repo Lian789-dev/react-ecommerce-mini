@@ -10,12 +10,12 @@ export default function CardAction() {
   const onOpenModal = useModalStore((state) => state.onOpenModal);
   const { id } = useParams();
   const product = getProductById(id);
+  const isOutOfStock = product.stock === 0;
 
   return (
     <div className="mt-5 hidden gap-2 border-t border-slate-300 py-4 sm:flex">
       <button
         type="button"
-        onClick={() => onOpenModal("product-options")}
         aria-label="Chat The Seller"
         className="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-slate-300 p-2 text-green-700 shadow-md"
       >
@@ -36,12 +36,13 @@ export default function CardAction() {
       </button>
       <button
         type="button"
+        disabled={isOutOfStock}
         onClick={() => {
           onAddToCart(product);
           toast.success(`${product.name} added to cart`);
         }}
         aria-label="Add To Cart"
-        className="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-slate-300 p-2 text-green-700 shadow-md"
+        className="flex cursor-pointer items-center justify-center gap-2 rounded-md border border-slate-300 p-2 text-green-700 shadow-md disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-white disabled:shadow-none"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -61,8 +62,9 @@ export default function CardAction() {
       <button
         type="button"
         aria-label="Buy Product"
+        disabled={isOutOfStock}
         onClick={() => onOpenModal("product-options")}
-        className="w-full max-w-52 cursor-pointer rounded-md border border-slate-300 bg-green-700 px-7 py-2 text-white hover:bg-green-800 active:bg-green-900"
+        className="w-full max-w-52 cursor-pointer rounded-md border border-slate-300 bg-green-700 px-7 py-2 text-white hover:bg-green-800 active:bg-green-900 disabled:cursor-not-allowed disabled:bg-slate-200 disabled:active:scale-100"
       >
         Buy Now
       </button>

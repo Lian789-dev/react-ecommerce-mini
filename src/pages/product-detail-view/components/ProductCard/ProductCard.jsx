@@ -5,15 +5,22 @@ export default function ProductCard() {
   const { id } = useParams();
   const getProductById = useProductStore((state) => state.getProductById);
   const product = getProductById(id);
-
+  const isOutOfStock = product.stock === 0;
   return (
     <div className="flex w-full flex-col border-b border-slate-300 bg-white shadow-md sm:flex-row sm:gap-4 sm:rounded-md sm:border sm:p-4">
-      <div className="w-full overflow-hidden sm:max-w-80 sm:rounded-md">
+      <div className="relative w-full overflow-hidden sm:max-w-80 sm:rounded-md">
         <img
           src={product.image}
           alt={product.name}
           className="aspect-square w-full object-cover"
         />
+        {isOutOfStock && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+            <span className="rounded-md bg-red-600 px-2.5 py-1 text-xs font-semibold tracking-wider text-white uppercase shadow-md">
+              Product out of stock
+            </span>
+          </div>
+        )}
       </div>
       <div className="flex w-full flex-col px-4 py-6 sm:p-0">
         <h1 className="line-clamp-2 text-xl font-bold text-slate-900">

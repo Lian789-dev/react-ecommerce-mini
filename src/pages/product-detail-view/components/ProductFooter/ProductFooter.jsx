@@ -10,6 +10,7 @@ export default function ProductFooter() {
   const onOpenModal = useModalStore((state) => state.onOpenModal);
   const { id } = useParams();
   const product = getProductById(id);
+  if (product.stock === 0) return;
   return (
     <div className="sticky bottom-0 left-0 z-40 flex w-full border-t border-slate-200 bg-white sm:hidden">
       <div className="flex flex-1 items-center">
