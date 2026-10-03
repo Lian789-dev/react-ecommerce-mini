@@ -1,6 +1,7 @@
 import { useProductStore } from "@/store/useProductStore";
 import { useModalStore } from "@/store/useModalStore";
 import ProductGrid from "@/components/ProductGrid";
+import BottomNavigation from "@/components/BottomNavigation";
 import CategoryFilter from "./components/CategoryFilter";
 import OrderSuccessModal from "./components/OrderSuccessModal/OrderSuccessModal";
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
         <h1 className="pb-4 text-lg font-bold">Recommendation</h1>
         <ProductGrid products={products} />
       </div>
+      <BottomNavigation />
       {activeModal === "order-success" && <OrderSuccessModal />}
     </div>
   );
