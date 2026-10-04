@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useProductStore } from "@/store/useProductStore";
 import CardAction from "./CardAction";
+import InteractionBar from "./InteractionBar";
+
 export default function ProductCard() {
   const { id } = useParams();
   const getProductById = useProductStore((state) => state.getProductById);
@@ -14,6 +16,9 @@ export default function ProductCard() {
           alt={product.name}
           className="aspect-square w-full object-cover"
         />
+        <div className="absolute top-3 right-5 text-white">
+          <InteractionBar />
+        </div>
         {isOutOfStock && (
           <div className="absolute inset-0 flex items-center justify-center bg-black/40">
             <span className="rounded-md bg-red-600 px-2.5 py-1 text-xs font-semibold tracking-wider text-white uppercase shadow-md">

@@ -6,6 +6,7 @@ import Catalog from "../pages/catalog";
 import Checkout from "../pages/checkout";
 import ShippingAddress from "../pages/shipping-address";
 import UserProfile from "../pages/user-profile";
+import Wishlist from "../pages/wishlist";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -22,9 +23,9 @@ export const router = createBrowserRouter([
       { path: "/category/:categoryName", element: <Catalog /> },
       { path: "/search", element: <Catalog /> },
       { path: "/profile", element: <UserProfile /> },
-      { path: "/wishlist", element: <Home /> },
     ],
   },
+  { path: "/wishlist", element: <Wishlist /> },
   {
     path: "/checkout",
     element: <Checkout />,

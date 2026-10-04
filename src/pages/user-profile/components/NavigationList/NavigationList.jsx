@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function NavigationList() {
   const navItems = [
     {
-      to: "/#",
+      to: "/wishlist",
       label: "Wishlist",
       icon: (
         <svg
