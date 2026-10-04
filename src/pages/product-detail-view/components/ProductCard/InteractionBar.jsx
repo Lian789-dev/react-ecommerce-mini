@@ -34,7 +34,7 @@ export default function InteractionBar() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="size-6"
+          className="size-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]"
         >
           <path
             strokeLinecap="round"
@@ -50,7 +50,7 @@ export default function InteractionBar() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="size-6"
+          className="size-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]"
         >
           <path
             strokeLinecap="round"
