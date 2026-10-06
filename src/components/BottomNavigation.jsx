@@ -44,7 +44,7 @@ export default function BottomNavigation() {
       ),
     },
     {
-      to: "/#",
+      to: "/order?tab=all",
       label: "Orders",
       icon: (
         <svg

@@ -34,13 +34,15 @@ export default function ButtonOrder() {
     const formaterItems = products.map((item) => ({
       id: item.id,
       name: item.name,
+      image: item.image,
       quantity: Number(item.quantity),
       price: Number(item.price),
+      status: "packaged",
       totalPay: Number(item.price) * Number(item.quantity),
     }));
     const itemPurchased = {
       id: crypto.randomUUID(),
-      item: formaterItems,
+      items: formaterItems,
       address: selectedAddress,
       paymentMethod: selectedPayment,
       totalAmount: subtotal,

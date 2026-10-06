@@ -23,7 +23,7 @@ export default function NavigationList() {
       ),
     },
     {
-      to: "/#",
+      to: "/order?tab=all",
       label: "Order History",
       icon: (
         <svg

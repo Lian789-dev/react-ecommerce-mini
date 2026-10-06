@@ -7,6 +7,7 @@ import Checkout from "../pages/checkout";
 import ShippingAddress from "../pages/shipping-address";
 import UserProfile from "../pages/user-profile";
 import Wishlist from "../pages/wishlist";
+import OrderHistory from "../pages/order-history";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
     ],
   },
   { path: "/wishlist", element: <Wishlist /> },
+  { path: "/order", element: <OrderHistory /> },
   {
     path: "/checkout",
     element: <Checkout />,
