@@ -7,8 +7,6 @@ export const useProductStore = create(
     (set, get) => ({
       products: InitialProduct,
       orderHistory: [],
-      orderSuccessModal: false,
-      productOptionModal: false,
 
       getProductById: (itemId) => {
         return get().products.find(
