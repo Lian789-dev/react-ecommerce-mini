@@ -38,6 +38,10 @@ export default function SearchBar() {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    setIsOpen(false);
+    setTimeout(() => {
+      inputRef.current?.blur();
+    }, 0);
     if (selectedIndex >= 0 && autoComplete[selectedIndex]) {
       navigate(
         `/search?q=${encodeURIComponent(autoComplete[selectedIndex].name.trim())}&sortBy=favorite`
@@ -45,7 +49,6 @@ export default function SearchBar() {
       onCloseModal();
       setSelectedIndex(-1);
       inputRef.current.blur();
-      setIsOpen(false);
       return;
     }
 
@@ -109,7 +112,6 @@ export default function SearchBar() {
               }}
               onKeyDown={handleKeyDown}
               onFocus={() => setIsOpen(true)}
-              onBlur={() => setIsOpen(false)}
               placeholder="Search..."
               className="h-10 w-full px-2 text-sm text-slate-800 outline-none placeholder:text-slate-400"
             />
