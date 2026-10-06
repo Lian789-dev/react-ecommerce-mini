@@ -31,7 +31,7 @@ export const useCheckoutStore = create(
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         address: state.address,
-        selectedAddress: state.selectedAddress,
+        selectedAddressId: state.selectedAddressId,
       }),
     }
   )

@@ -43,7 +43,7 @@ export default function NavigationList() {
       ),
     },
     {
-      to: "/#",
+      to: "/shipping-addresses",
       label: "Shipping Address",
       icon: (
         <svg
