@@ -8,14 +8,15 @@ export default function CartDrawer() {
   const cart = useCartStore((state) => state.cart);
   const activeModal = useModalStore((state) => state.activeModal);
   const onCloseModal = useModalStore((state) => state.onCloseModal);
-
+  const isOpen = activeModal === "cart-drawer";
   useEffect(() => {
+    if (!isOpen) return;
     const originalStyle = window.getComputedStyle(document.body).overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = originalStyle;
     };
-  }, []);
+  }, [isOpen]);
   if (activeModal !== "cart-drawer") return null;
   return (
     <div className="fixed inset-0 right-0 z-40 flex justify-end">
